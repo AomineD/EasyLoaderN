@@ -36,22 +36,27 @@ this.ad_unit = ad;
         void OnFailed(String errno);
     }
 
+    private EasyListener easyListener;
 
-    public void SetupIntersticial(final String ad_unit_int, final EasyListener listener){
+    public void setEasyListener(EasyListener k){
+        this.easyListener = k;
+    }
+
+    public void SetupIntersticial(final String ad_unit_int){
         interstitialAd = new InterstitialAd(contexto);
         interstitialAd.setAdUnitId(ad_unit_int);
         interstitialAd.setAdListener(new AdListener(){
             @Override
             public void onAdClosed() {
                 super.onAdClosed();
-                listener.OnClosed();
-                SetupIntersticial(ad_unit_int, listener);
+                easyListener.OnClosed();
+                SetupIntersticial(ad_unit_int);
             }
 
             @Override
             public void onAdFailedToLoad(int i) {
                 super.onAdFailedToLoad(i);
-                listener.OnFailed("Error code: "+i);
+                easyListener.OnFailed("Error code: "+i);
             }
         });
         interstitialAd.loadAd(new AdRequest.Builder().build());
