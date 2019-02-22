@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.formats.MediaView;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.formats.UnifiedNativeAdView;
@@ -28,8 +29,47 @@ this.ad_unit = ad;
         this.contexto = mm;
     }
 
+
+    public interface EasyListener{
+        void OnClosed();
+
+        void OnFailed(String errno);
+    }
+
+
+    public void SetupIntersticial(final String ad_unit_int, final EasyListener listener){
+        interstitialAd = new InterstitialAd(contexto);
+        interstitialAd.setAdUnitId(ad_unit_int);
+        interstitialAd.setAdListener(new AdListener(){
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+                listener.OnClosed();
+                SetupIntersticial(ad_unit_int, listener);
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                listener.OnFailed("Error code: "+i);
+            }
+        });
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+    }
+
+    public boolean isInterstitialLoaded(){
+        return interstitialAd != null && interstitialAd.isLoaded();
+    }
+
+    public void showIntersticial(){
+        if(interstitialAd.isLoaded()){
+            interstitialAd.show();
+        }
+    }
+
 // =========================================== VARIABLES NORMALS ======================================================= //
 
+    private InterstitialAd interstitialAd;
     private AdLoader nativos;
     private UnifiedNativeAd[] adsNativosEx;
     public static boolean LoadedNative;
