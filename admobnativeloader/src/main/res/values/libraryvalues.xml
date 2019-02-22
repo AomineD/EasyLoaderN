@@ -1,0 +1,9 @@
+<resources>
+    <dimen name="altura_nativo">315dp</dimen>
+
+    <string name="loading_ad">Loading ads...</string>
+    <string name="loading_desc">Loading...</string>
+    <string name="sponsored">Sponsored</string>
+
+    <color name="black">#000000</color>
+</resources>

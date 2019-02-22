@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/altura_nativo"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/banner_container"
+android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp">
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/button_action"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="6dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/black"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp">
+
+
+        </android.support.v7.widget.CardView>
+
+
+        <com.google.android.gms.ads.formats.UnifiedNativeAdView
+            android:id="@+id/unified"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="7dp">
+
+
+        </com.google.android.gms.ads.formats.UnifiedNativeAdView>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="25dp"
+            android:text="@string/sponsored"
+            android:textColor="#BDBDBD"
+            android:textSize="12sp" />
+
+
+
+        <ImageView
+            android:id="@+id/ad_choices"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="center"
+            android:visibility="gone">
+
+
+        </ImageView>
+
+
+        <TextView
+            android:id="@+id/title_ad"
+            android:layout_width="160dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="96dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="3dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/loading_ad"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/sponsor_ad"
+            android:layout_width="180dp"
+            android:layout_height="55dp"
+            android:layout_above="@id/button_action"
+            android:layout_below="@+id/title_ad"
+            android:layout_alignStart="@+id/title_ad"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="4dp"
+            android:layout_toLeftOf="@id/ad_choices"
+            android:fontFamily="@font/roboto"
+            android:text="@string/loading_desc"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+
+
+        <ImageView
+            android:id="@+id/ad_icon_view"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="17dp"
+            android:visibility="visible">
+
+        </ImageView>
+
+        <com.google.android.gms.ads.formats.MediaView
+            android:id="@+id/mediaView"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_below="@id/sponsor_ad"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="32dp">
+
+        </com.google.android.gms.ads.formats.MediaView>
+
+        <TextView
+            android:id="@+id/callto"
+            android:layout_width="160dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@+id/button_action"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="false"
+            android:layout_gravity="center"
+            android:layout_marginEnd="6dp"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+
+            android:text="Install"
+            android:textColor="@color/black" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
