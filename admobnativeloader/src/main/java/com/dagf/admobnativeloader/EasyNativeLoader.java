@@ -258,8 +258,9 @@ if(adcount > 0){
         nativos = new AdLoader.Builder(contexto, ad_unit).forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
             @Override
             public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
-                adsNativosEx[isdd] = unifiedNativeAd;
                 Log.e("MAIN", "onUnifiedNativeAdLoaded: GOES"+isdd);
+                adsNativosEx[isdd] = unifiedNativeAd;
+
                 SetupGods(isdd);
                 isdd++;
 
@@ -279,6 +280,7 @@ if(adcount > 0){
         }).build();
 
         nativos.loadAds(new AdRequest.Builder().build(), AdCount);
+        Log.e("MAIN", "EasyNativeLoader: Cantidad = "+AdCount);
 
     }
 
