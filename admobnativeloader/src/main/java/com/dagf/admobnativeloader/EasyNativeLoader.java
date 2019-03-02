@@ -99,6 +99,7 @@ this.ad_unit = ad;
 
     public void newInstance(View mainview, int adcount){
 this.AdCount = adcount;
+d = 0;
         SetCountView(adcount);
 
 if(adcount == 0){
