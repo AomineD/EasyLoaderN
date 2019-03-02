@@ -259,9 +259,10 @@ if(adcount > 0){
             @Override
             public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
                 adsNativosEx[isdd] = unifiedNativeAd;
+                Log.e("MAIN", "onUnifiedNativeAdLoaded: GOES"+isdd);
                 SetupGods(isdd);
                 isdd++;
-                // Log.e("MAIN", "onUnifiedNativeAdLoaded: GOES");
+
             }
         }).withAdListener(new AdListener(){
             @Override
