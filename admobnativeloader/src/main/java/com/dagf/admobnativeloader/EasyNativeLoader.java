@@ -30,6 +30,13 @@ this.ad_unit = ad;
     }
 
 
+    public interface ReceiveListener{
+        void OnReceive(UnifiedNativeAd ad);
+
+        void OnFailed();
+    }
+
+
     public interface EasyListener{
         void OnClosed();
 
@@ -284,5 +291,123 @@ if(adcount > 0){
 
     }
 
+
+    // ============================================ SETUP NATIVES ADAPTER ================================================ //
+  // ===================================================================================================================== //
+    private ArrayList<UnifiedNativeAd> nativeAdsAdapter = new ArrayList<>();
+
+    public void setupAdapterNatives(int Cantity){
+        AdLoader adLoader = new AdLoader.Builder(contexto, ad_unit).forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+            @Override
+            public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                nativeAdsAdapter.add(unifiedNativeAd);
+            }
+        })
+
+                .withAdListener(new AdListener(){
+                    @Override
+                    public void onAdFailedToLoad(int i) {
+                        super.onAdFailedToLoad(i);
+                    }
+
+                    @Override
+                    public void onAdLoaded() {
+                        super.onAdLoaded();
+                    }
+                })
+                .build();
+
+
+        adLoader.loadAds(new AdRequest.Builder().build(), Cantity);
+    }
+
+    public UnifiedNativeAd getSomeNative(int index){
+        if(nativeAdsAdapter.get(index) != null){
+            return nativeAdsAdapter.get(index);
+        }else{
+            return null;
+        }
+    }
+
+    /**
+     =====================================
+     RECUERDA QUE EL NORMAL LAYOUT DEBE TENER COMO ID
+     normal_view
+     =====================================
+     **/
+    public void SetupHolder(View view, int wht){
+
+        RelativeLayout banner_container;
+        RelativeLayout norml;
+        UnifiedNativeAdView adViewUnif;
+        TextView action;
+        TextView title_ad;
+        TextView sponsor;
+        CardView button_action;
+        CardView background;
+        ImageView iconView;
+        ImageView ad_choices;
+        MediaView mediaviu;
+
+
+
+        banner_container = view.findViewById(R.id.banner_container);
+        norml = view.findViewById(R.id.normal_view);
+        mediaviu = view.findViewById(R.id.mediaView);
+        adViewUnif = view.findViewById(R.id.unified);
+
+        background = view.findViewById(R.id.card);
+        iconView = view.findViewById(R.id.ad_icon_view);
+        action = view.findViewById(R.id.callto);
+        title_ad = view.findViewById(R.id.title_ad);
+        sponsor = view.findViewById(R.id.sponsor_ad);
+        button_action = view.findViewById(R.id.button_action);
+        ad_choices = view.findViewById(R.id.ad_choices);
+
+
+        banner_container.setVisibility(View.VISIBLE);
+        norml.setVisibility(View.GONE);
+
+        if(nativeAdsAdapter.get(wht) != null){
+
+
+            String title = nativeAdsAdapter.get(wht).getHeadline();//MainActivity.nativeBannerAd[m3us.get(position).getId_native()].getAdHeadline();
+            String provider = nativeAdsAdapter.get(wht).getAdvertiser(); //MainActivity.nativeBannerAd[m3us.get(position).getId_native()].getSponsoredTranslation();
+            String boton_action = nativeAdsAdapter.get(wht).getCallToAction(); //MainActivity.nativeBannerAd[m3us.get(position).getId_native()].getAdCallToAction();
+            String patrocinador = nativeAdsAdapter.get(wht).getBody(); //MainActivity.nativeBannerAd[m3us.get(position).getId_native()].getAdBodyText();
+
+            title_ad.setText(title);
+            sponsor.setText(patrocinador);
+            action.setText(boton_action);
+            if(nativeAdsAdapter.get(wht).getIcon() != null)
+                iconView.setImageDrawable(nativeAdsAdapter.get(wht).getIcon().getDrawable());
+
+            //  Picasso.get().load(MainActivity.nativeOrig.getAdChoicesInfo().getImages().get(0).getUri()).fit().into(iconView_1);
+
+            nativeAdsAdapter.get(wht).setUnconfirmedClickListener(new UnifiedNativeAd.UnconfirmedClickListener() {
+                @Override
+                public void onUnconfirmedClickReceived(String s) {
+                    //  Toast.makeText(getContext(), "CLICK!", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onUnconfirmedClickCancelled() {
+
+                }
+            });
+
+            adViewUnif.setCallToActionView(action);
+            adViewUnif.setCallToActionView(action);
+            adViewUnif.setBodyView(sponsor);
+            adViewUnif.setIconView(iconView);
+            adViewUnif.setHeadlineView(title_ad);
+            adViewUnif.setMediaView(mediaviu);
+            adViewUnif.setNativeAd(nativeAdsAdapter.get(wht));
+
+
+
+        }
+
+    }
 
 }
