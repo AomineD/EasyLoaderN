@@ -1,7 +1,11 @@
 package com.dagf.admobnativeloader;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.support.v7.widget.CardView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +20,8 @@ import com.google.android.gms.ads.formats.MediaView;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class EasyNativeLoader {
@@ -408,6 +414,30 @@ if(adcount > 0){
 
         }
 
+    }
+
+
+    public static String getSha1(Context c){
+
+
+        String hash = "";
+        try {
+            PackageInfo info = c.getPackageManager().getPackageInfo(
+                    c.getPackageName(),
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                hash = Base64.encodeToString(md.digest(), Base64.DEFAULT);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("MAIN", "getSha1: NameNotFoundException =  "+e.getMessage());
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("MAIN", "getSha1: NoSuchAlgorithmException = "+e.getMessage());
+        }
+
+        return hash;
     }
 
 }
