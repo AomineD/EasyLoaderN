@@ -440,4 +440,29 @@ if(adcount > 0){
         return hash;
     }
 
+    public static String getSha1(String c, Context cpm){
+
+
+        String hash = "";
+        try {
+            PackageInfo info = cpm.getPackageManager().getPackageInfo(
+                    c,
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                hash = Base64.encodeToString(md.digest(), Base64.DEFAULT);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("MAIN", "getSha1: NameNotFoundException =  "+e.getMessage());
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("MAIN", "getSha1: NoSuchAlgorithmException = "+e.getMessage());
+        }
+
+        Log.e("MAIN", "getSha1: "+c+" hahah "+cpm.getPackageName());
+
+        return hash;
+    }
+
 }
