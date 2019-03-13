@@ -374,7 +374,7 @@ if(adcount > 0){
         banner_container.setVisibility(View.VISIBLE);
         norml.setVisibility(View.GONE);
 
-        if(nativeAdsAdapter.get(wht) != null){
+        if(nativeAdsAdapter.size() > 0 && nativeAdsAdapter.get(wht) != null){
 
 
             String title = nativeAdsAdapter.get(wht).getHeadline();//MainActivity.nativeBannerAd[m3us.get(position).getId_native()].getAdHeadline();
