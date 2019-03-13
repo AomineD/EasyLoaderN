@@ -313,6 +313,9 @@ if(adcount > 0){
                 .withAdListener(new AdListener(){
                     @Override
                     public void onAdFailedToLoad(int i) {
+                        if(easyListener != null){
+                            easyListener.OnFailed("Nativo Adapter Error code: "+i);
+                        }
                         super.onAdFailedToLoad(i);
                     }
 
