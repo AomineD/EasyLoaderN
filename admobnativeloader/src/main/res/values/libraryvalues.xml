@@ -5,5 +5,10 @@
     <string name="loading_desc">Loading...</string>
     <string name="sponsored">Sponsored</string>
 
+
+
+    <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
+    <color name="tran">#00ffffff</color>
 </resources>
