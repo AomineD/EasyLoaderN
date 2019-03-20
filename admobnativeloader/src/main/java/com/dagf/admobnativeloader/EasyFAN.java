@@ -79,7 +79,7 @@ public class EasyFAN {
             String sp = nativeAd.get(i).getAdTranslation();
 
           //  com.facebook.ads.AdChoicesView adChoicesView = new com.facebook.ads.AdChoicesView(context, nativeAd, true);
-
+if(nativeAd.get(i).getAdChoicesImageUrl() != null)
             Picasso.get().load(Uri.parse(nativeAd.get(i).getAdChoicesImageUrl())).fit().into(ad_choices);
 
             title_ad.setText(title);
