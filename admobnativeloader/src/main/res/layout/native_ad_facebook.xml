@@ -55,8 +55,8 @@ app:cardElevation="0dp"
 
     <ImageView
         android:id="@+id/ad_choices"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
@@ -104,7 +104,7 @@ app:cardElevation="0dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="2dp"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="5dp"
 
         card_view:cardBackgroundColor="@color/black">
 
