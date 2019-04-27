@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <include
-        layout="@layout/native_ad_facebook"
+        layout="@layout/native_ad_facebook_smart"
         android:id="@+id/native1"
         />
 

@@ -71,18 +71,18 @@ public class EasyFAN {
 
 
     
-    public void setupViews(View banner_container, int i, int colorbck, int textco){
+    public void setupViews(final View banner_container, final int i, final int colorbck, final int textco){
 
-        TextView action;
-        TextView title_ad;
-        TextView desc_ad;
-        ImageView ad_choices;
-        TextView sponsor;
-        CardView button_action;
-        CardView background;
-        ImageView iconView;
+        final TextView action;
+        final TextView title_ad;
+        final TextView desc_ad;
+        final ImageView ad_choices;
+        final TextView sponsor;
+        final CardView button_action;
+        final CardView background;
+        final ImageView iconView;
 
-        MediaView mediaView;
+        final MediaView mediaView;
 
 
         iconView = banner_container.findViewById(R.id.ad_icon_view);
@@ -118,7 +118,7 @@ if(nativeAd.get(i).getAdChoicesImageUrl() != null)
             sponsor.setText(sp);
             sponsor.setTextColor(textco);
         //    ad_choices.addView(adChoicesView, 0);
-            Log.e("MAIN", "setupViews: COLOR => "+textco);
+          //  Log.e("MAIN", "setupViews: COLOR => "+textco);
             action.setText(boton_action);
             button_action.setCardBackgroundColor(colorbck);
 action.setTextColor(textco);
@@ -139,6 +139,99 @@ action.setTextColor(textco);
 
 
             nativeAd.get(i).registerViewForInteraction(banner_container, mediaView, iconView, clickables);
+        }else{
+
+            nativeAd.get(i).setAdListener(new NativeAdListener() {
+                @Override
+                public void onMediaDownloaded(Ad ad) {
+                    // ============== NATIVO CARGO ================== //
+
+                    String title = nativeAd.get(i).getAdvertiserName();
+                    String provider = nativeAd.get(i).getSponsoredTranslation();
+                    String boton_action = nativeAd.get(i).getAdCallToAction();
+                    String patrocinador = nativeAd.get(i).getAdBodyText();
+                    String sp = nativeAd.get(i).getAdTranslation();
+                    background.setCardBackgroundColor(colorbck);
+                    //  com.facebook.ads.AdChoicesView adChoicesView = new com.facebook.ads.AdChoicesView(context, nativeAd, true);
+                    if(nativeAd.get(i).getAdChoicesImageUrl() != null)
+                        Picasso.get().load(Uri.parse(nativeAd.get(i).getAdChoicesImageUrl())).fit().into(ad_choices);
+
+                    title_ad.setText(title);
+                    desc_ad.setText(patrocinador);
+                    desc_ad.setTextColor(textco);
+                    title_ad.setTextColor(textco);
+                    sponsor.setText(sp);
+                    sponsor.setTextColor(textco);
+                    //    ad_choices.addView(adChoicesView, 0);
+                    //  Log.e("MAIN", "setupViews: COLOR => "+textco);
+                    action.setText(boton_action);
+                    button_action.setCardBackgroundColor(colorbck);
+                    action.setTextColor(textco);
+
+                    if (clickables.size() < 1) {
+                        clickables.add(button_action);
+                        clickables.add(title_ad);
+                        clickables.add(sponsor);
+                        clickables.add(mediaView);
+                        clickables.add(action);
+                    } else if (!clickables.contains(button_action)) {
+                        clickables.add(button_action);
+                        clickables.add(title_ad);
+                        clickables.add(mediaView);
+                        clickables.add(sponsor);
+                        clickables.add(action);
+                    }
+
+
+                    nativeAd.get(i).registerViewForInteraction(banner_container, mediaView, iconView, clickables);
+
+                }
+
+                @Override
+                public void onError(Ad ad, AdError adError) {
+
+                  /*  String title = nativeAd.get(i).getAdvertiserName();
+                    String provider = nativeAd.get(i).getSponsoredTranslation();
+                    String boton_action = nativeAd.get(i).getAdCallToAction();
+                    String patrocinador = nativeAd.get(i).getAdBodyText();
+                    String sp = nativeAd.get(i).getAdTranslation();
+
+                    //  com.facebook.ads.AdChoicesView adChoicesView = new com.facebook.ads.AdChoicesView(context, nativeAd, true);
+                    if(nativeAd.get(i).getAdChoicesImageUrl() != null)
+                        Picasso.get().load(Uri.parse(nativeAd.get(i).getAdChoicesImageUrl())).fit().into(ad_choices);
+*/
+                    background.setCardBackgroundColor(colorbck);
+                    title_ad.setText("Error");
+                    desc_ad.setText("Error on load");
+                    desc_ad.setTextColor(textco);
+                    title_ad.setTextColor(textco);
+                    sponsor.setText("Ad - Anuncio");
+                    sponsor.setTextColor(textco);
+                    //    ad_choices.addView(adChoicesView, 0);
+                    //  Log.e("MAIN", "setupViews: COLOR => "+textco);
+                    action.setText("Error");
+                    button_action.setCardBackgroundColor(colorbck);
+                    action.setTextColor(textco);
+
+
+                }
+
+                @Override
+                public void onAdLoaded(Ad ad) {
+
+                }
+
+                @Override
+                public void onAdClicked(Ad ad) {
+
+                }
+
+                @Override
+                public void onLoggingImpression(Ad ad) {
+
+                }
+            });
+
         }
     }
 }
