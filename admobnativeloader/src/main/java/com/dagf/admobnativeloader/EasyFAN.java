@@ -70,7 +70,9 @@ public class EasyFAN {
     }
 
 
-    
+    private MediaView mediaView;
+    private AdIconView iconView1;
+    private ImageView iconView;
     public void setupViews(final View banner_container, final int i, final int colorbck, final int textco){
 
         final TextView action;
@@ -80,10 +82,8 @@ public class EasyFAN {
         final TextView sponsor;
         final CardView button_action;
         final CardView background;
-        final ImageView iconView;
-        final AdIconView iconView1;
 
-        final MediaView mediaView;
+
 
 
 
