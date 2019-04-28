@@ -10,5 +10,6 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 
+    <color name="bg_red_cf215d">#CF2124</color>
     <color name="tran">#00ffffff</color>
 </resources>

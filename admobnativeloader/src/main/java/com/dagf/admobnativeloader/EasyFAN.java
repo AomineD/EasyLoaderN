@@ -103,6 +103,12 @@ public class EasyFAN {
 
         background = banner_container.findViewById(R.id.card);
         ad_choices = banner_container.findViewById(R.id.ad_choices);
+        background.setCardBackgroundColor(colorbck);
+        desc_ad.setTextColor(textco);
+        title_ad.setTextColor(textco);
+        sponsor.setTextColor(textco);
+        button_action.setCardBackgroundColor(colorbck);
+        action.setTextColor(textco);
 
         if ( nativeAd.get(i) != null && nativeAd.get(i).isAdLoaded()) {
 
@@ -111,22 +117,20 @@ public class EasyFAN {
             String boton_action = nativeAd.get(i).getAdCallToAction();
             String patrocinador = nativeAd.get(i).getAdBodyText();
             String sp = nativeAd.get(i).getAdTranslation();
-background.setCardBackgroundColor(colorbck);
+
           //  com.facebook.ads.AdChoicesView adChoicesView = new com.facebook.ads.AdChoicesView(context, nativeAd, true);
 if(nativeAd.get(i).getAdChoicesImageUrl() != null)
             Picasso.get().load(Uri.parse(nativeAd.get(i).getAdChoicesImageUrl())).fit().into(ad_choices);
 
             title_ad.setText(title);
             desc_ad.setText(patrocinador);
-            desc_ad.setTextColor(textco);
-            title_ad.setTextColor(textco);
+
             sponsor.setText(sp);
-            sponsor.setTextColor(textco);
+
         //    ad_choices.addView(adChoicesView, 0);
           //  Log.e("MAIN", "setupViews: COLOR => "+textco);
             action.setText(boton_action);
-            button_action.setCardBackgroundColor(colorbck);
-action.setTextColor(textco);
+
 
             if (clickables.size() < 1) {
                 clickables.add(button_action);
@@ -160,22 +164,17 @@ action.setTextColor(textco);
                     String boton_action = nativeAd.get(i).getAdCallToAction();
                     String patrocinador = nativeAd.get(i).getAdBodyText();
                     String sp = nativeAd.get(i).getAdTranslation();
-                    background.setCardBackgroundColor(colorbck);
                     //  com.facebook.ads.AdChoicesView adChoicesView = new com.facebook.ads.AdChoicesView(context, nativeAd, true);
                     if(nativeAd.get(i).getAdChoicesImageUrl() != null)
                         Picasso.get().load(Uri.parse(nativeAd.get(i).getAdChoicesImageUrl())).fit().into(ad_choices);
 
                     title_ad.setText(title);
                     desc_ad.setText(patrocinador);
-                    desc_ad.setTextColor(textco);
-                    title_ad.setTextColor(textco);
                     sponsor.setText(sp);
-                    sponsor.setTextColor(textco);
+
                     //    ad_choices.addView(adChoicesView, 0);
                     //  Log.e("MAIN", "setupViews: COLOR => "+textco);
                     action.setText(boton_action);
-                    button_action.setCardBackgroundColor(colorbck);
-                    action.setTextColor(textco);
 
                     if (clickables.size() < 1) {
                         clickables.add(button_action);
