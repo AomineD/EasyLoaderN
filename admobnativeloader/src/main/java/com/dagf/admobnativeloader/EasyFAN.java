@@ -24,6 +24,12 @@ public class EasyFAN {
     private ArrayList<View> clickables = new ArrayList<>();
     private ArrayList<NativeAd> nativeAd = new ArrayList<>();
     private Context context;
+
+    public void setRadius(boolean radius) {
+        isRadius = radius;
+    }
+
+    private boolean isRadius;
     private ArrayList<String> idsnat = new ArrayList<>();
     
     public EasyFAN(Context c, ArrayList<String> ad_unit){
@@ -109,6 +115,10 @@ public class EasyFAN {
         sponsor.setTextColor(textco);
         button_action.setCardBackgroundColor(colorbck);
         action.setTextColor(textco);
+
+        if(isRadius){
+            background.setRadius(0);
+        }
 
         if ( nativeAd.get(i) != null && nativeAd.get(i).isAdLoaded()) {
 
