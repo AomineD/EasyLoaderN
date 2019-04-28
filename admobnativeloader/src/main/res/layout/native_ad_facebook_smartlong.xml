@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/native_ad_layout"
+    android:layout_width="match_parent"
+    android:layout_height="310dp"
+    android:background="@android:color/black"
+    android:layout_margin="5dp"
+    android:visibility="visible"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools">
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card"
+        card_view:cardBackgroundColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp">
+
+
+    </android.support.v7.widget.CardView>
+
+    <com.facebook.ads.AdIconView
+            android:id="@+id/ad_icon_view"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_below="@+id/title_ad"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp">
+
+        </com.facebook.ads.AdIconView>
+
+        <TextView
+            android:id="@+id/title_ad"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/sponsor_ad"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="Loading ad..."
+            android:textColor="@color/white" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/button_action"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="2dp"
+            app:cardBackgroundColor="@color/bg_red_cf215d"
+            app:cardCornerRadius="5dp">
+
+            <TextView
+                android:id="@+id/callto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Install"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:id="@+id/sponsor_ad"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_toRightOf="@+id/ad_choices"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="2dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Loading..."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical"/>
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:id="@+id/ad_choices"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="2dp" />
+
+    <TextView
+        android:id="@+id/sponsor_adw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_action"
+        android:layout_below="@+id/ad_icon_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
+        android:fontFamily="serif-monospace"
+        android:text="Loading..."
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+</RelativeLayout>

@@ -81,11 +81,12 @@ public class EasyFAN {
         final CardView button_action;
         final CardView background;
         final ImageView iconView;
+        final AdIconView iconView1;
 
         final MediaView mediaView;
 
 
-        iconView = banner_container.findViewById(R.id.ad_icon_view);
+
         action = banner_container.findViewById(R.id.callto);
         title_ad = banner_container.findViewById(R.id.title_ad);
         sponsor = banner_container.findViewById(R.id.sponsor_ad);
@@ -93,8 +94,12 @@ public class EasyFAN {
   //      normal_view = itemView.findViewById(R.id.normal_view);
 
         button_action = banner_container.findViewById(R.id.button_action);
-        mediaView = banner_container.findViewById(R.id.media_view);
-
+        try {
+            mediaView = banner_container.findViewById(R.id.media_view);
+            iconView = banner_container.findViewById(R.id.ad_icon_view);
+        }catch(Exception e){
+            iconView1 = banner_container.findViewById(R.id.ad_icon_view);
+        }
 
         background = banner_container.findViewById(R.id.card);
         ad_choices = banner_container.findViewById(R.id.ad_choices);
@@ -127,18 +132,22 @@ action.setTextColor(textco);
                 clickables.add(button_action);
                 clickables.add(title_ad);
                 clickables.add(sponsor);
+                if(mediaView!=null)
                 clickables.add(mediaView);
                 clickables.add(action);
             } else if (!clickables.contains(button_action)) {
                 clickables.add(button_action);
                 clickables.add(title_ad);
+                if(mediaView!=null)
                 clickables.add(mediaView);
                 clickables.add(sponsor);
                 clickables.add(action);
             }
 
-
+            if(mediaView!=null)
             nativeAd.get(i).registerViewForInteraction(banner_container, mediaView, iconView, clickables);
+            else
+                nativeAd.get(i).registerViewForInteraction(banner_container, iconView1, clickables);
         }else{
 
             nativeAd.get(i).setAdListener(new NativeAdListener() {
@@ -172,19 +181,22 @@ action.setTextColor(textco);
                         clickables.add(button_action);
                         clickables.add(title_ad);
                         clickables.add(sponsor);
-                        clickables.add(mediaView);
+                        if(mediaView!=null)
+                            clickables.add(mediaView);
                         clickables.add(action);
                     } else if (!clickables.contains(button_action)) {
                         clickables.add(button_action);
                         clickables.add(title_ad);
-                        clickables.add(mediaView);
+                        if(mediaView!=null)
+                            clickables.add(mediaView);
                         clickables.add(sponsor);
                         clickables.add(action);
                     }
 
-
-                    nativeAd.get(i).registerViewForInteraction(banner_container, mediaView, iconView, clickables);
-
+                    if(mediaView!=null)
+                        nativeAd.get(i).registerViewForInteraction(banner_container, mediaView, iconView, clickables);
+                    else
+                        nativeAd.get(i).registerViewForInteraction(banner_container, iconView1, clickables);
                 }
 
                 @Override
