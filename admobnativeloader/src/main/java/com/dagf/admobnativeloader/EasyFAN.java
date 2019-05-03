@@ -25,11 +25,23 @@ public class EasyFAN {
     private ArrayList<NativeAd> nativeAd = new ArrayList<>();
     private Context context;
 
+    public interface OnNativeLoadInterface{
+        void OnSuccess();
+
+        void OnFail(String ss);
+    }
+
     public void setRadius(boolean radius) {
         isRadius = radius;
     }
 
     private boolean isRadius;
+    private OnNativeLoadInterface intre;
+
+    public void setInterface(OnNativeLoadInterface dd){
+        intre = dd;
+    }
+
     private ArrayList<String> idsnat = new ArrayList<>();
     
     public EasyFAN(Context c, ArrayList<String> ad_unit){
@@ -38,6 +50,7 @@ public class EasyFAN {
     
         for(int i=0; i < ad_unit.size(); i++){
             NativeAd n = new NativeAd(c, ad_unit.get(i));
+            final int finalI = i;
             n.setAdListener(new NativeAdListener() {
                 @Override
                 public void onMediaDownloaded(Ad ad) {
@@ -46,12 +59,16 @@ public class EasyFAN {
 
                 @Override
                 public void onError(Ad ad, AdError adError) {
-                    Log.e("MAIN", "onError: "+adError.getErrorMessage());
+                   // Log.e("MAIN", "onError: "+adError.getErrorMessage());
+                if(intre != null)
+                    intre.OnFail(adError.getErrorMessage()+ " el index => "+ finalI);
                 }
 
                 @Override
                 public void onAdLoaded(Ad ad) {
-                    Log.e("MAIN", "onAdLoaded: LOADED");
+                    if(intre!=null){
+                        intre.OnSuccess();
+                    }
                 }
 
                 @Override
@@ -244,7 +261,7 @@ if(nativeAd.get(i).getAdChoicesImageUrl() != null)
                 }
             });
 
-            if(isError.get(i)){
+            if(isError.size() > 0 && isError.get(i)){
                 background.setCardBackgroundColor(colorbck);
                 title_ad.setText("Error");
                 desc_ad.setText("Error on load");
