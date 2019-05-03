@@ -144,17 +144,17 @@ if(nativeAd.get(i).getAdChoicesImageUrl() != null)
 
             if (clickables.size() < 1) {
                 clickables.add(button_action);
-                clickables.add(title_ad);
-                clickables.add(sponsor);
-                if(mediaView!=null)
-                clickables.add(mediaView);
+               // clickables.add(title_ad);
+               // clickables.add(sponsor);
+               /* if(mediaView!=null)
+                clickables.add(mediaView);*/
                 clickables.add(action);
             } else if (!clickables.contains(button_action)) {
                 clickables.add(button_action);
-                clickables.add(title_ad);
-                if(mediaView!=null)
-                clickables.add(mediaView);
-                clickables.add(sponsor);
+         //       clickables.add(title_ad);
+           //     if(mediaView!=null)
+             //   clickables.add(mediaView);
+               // clickables.add(sponsor);
                 clickables.add(action);
             }
 
@@ -188,17 +188,17 @@ if(nativeAd.get(i).getAdChoicesImageUrl() != null)
 
                     if (clickables.size() < 1) {
                         clickables.add(button_action);
-                        clickables.add(title_ad);
-                        clickables.add(sponsor);
-                        if(mediaView!=null)
-                            clickables.add(mediaView);
+                       // clickables.add(title_ad);
+                       // clickables.add(sponsor);
+                        //if(mediaView!=null)
+                     //       clickables.add(mediaView);
                         clickables.add(action);
                     } else if (!clickables.contains(button_action)) {
                         clickables.add(button_action);
-                        clickables.add(title_ad);
-                        if(mediaView!=null)
-                            clickables.add(mediaView);
-                        clickables.add(sponsor);
+                        //clickables.add(title_ad);
+                        //if(mediaView!=null)
+                          //  clickables.add(mediaView);
+                        //clickables.add(sponsor);
                         clickables.add(action);
                     }
 
@@ -211,6 +211,8 @@ if(nativeAd.get(i).getAdChoicesImageUrl() != null)
                 @Override
                 public void onError(Ad ad, AdError adError) {
 
+                    isError.add(true);
+
                   /*  String title = nativeAd.get(i).getAdvertiserName();
                     String provider = nativeAd.get(i).getSponsoredTranslation();
                     String boton_action = nativeAd.get(i).getAdCallToAction();
@@ -221,18 +223,7 @@ if(nativeAd.get(i).getAdChoicesImageUrl() != null)
                     if(nativeAd.get(i).getAdChoicesImageUrl() != null)
                         Picasso.get().load(Uri.parse(nativeAd.get(i).getAdChoicesImageUrl())).fit().into(ad_choices);
 */
-                    background.setCardBackgroundColor(colorbck);
-                    title_ad.setText("Error");
-                    desc_ad.setText("Error on load");
-                    desc_ad.setTextColor(textco);
-                    title_ad.setTextColor(textco);
-                    sponsor.setText("Ad - Anuncio");
-                    sponsor.setTextColor(textco);
-                    //    ad_choices.addView(adChoicesView, 0);
-                    //  Log.e("MAIN", "setupViews: COLOR => "+textco);
-                    action.setText("Error");
-                    button_action.setCardBackgroundColor(colorbck);
-                    action.setTextColor(textco);
+
 
 
                 }
@@ -253,6 +244,23 @@ if(nativeAd.get(i).getAdChoicesImageUrl() != null)
                 }
             });
 
+            if(isError.get(i)){
+                background.setCardBackgroundColor(colorbck);
+                title_ad.setText("Error");
+                desc_ad.setText("Error on load");
+                desc_ad.setTextColor(textco);
+                title_ad.setTextColor(textco);
+                sponsor.setText("Ad - Anuncio");
+                sponsor.setTextColor(textco);
+                //    ad_choices.addView(adChoicesView, 0);
+                //  Log.e("MAIN", "setupViews: COLOR => "+textco);
+                action.setText("Error");
+                button_action.setCardBackgroundColor(colorbck);
+                action.setTextColor(textco);
+            }
+
         }
     }
+
+private ArrayList<Boolean> isError = new ArrayList<>();
 }
