@@ -25,7 +25,7 @@ public class EasyFAN {
     private ArrayList<NativeAd> nativeAd = new ArrayList<>();
     private Context context;
 
-    public interface OnNativeLoadInterface{
+    public interface OnNativeLoadInterface {
         void OnSuccess();
 
         void OnFail(String ss);
@@ -38,17 +38,18 @@ public class EasyFAN {
     private boolean isRadius;
     private OnNativeLoadInterface intre;
 
-    public void setInterface(OnNativeLoadInterface dd){
+    public void setInterface(OnNativeLoadInterface dd) {
         intre = dd;
     }
 
     private ArrayList<String> idsnat = new ArrayList<>();
-    
-    public EasyFAN(Context c, ArrayList<String> ad_unit){
+
+    public EasyFAN(Context c, ArrayList<String> ad_unit) {
         this.context = c;
         this.idsnat.addAll(ad_unit);
-    
-        for(int i=0; i < ad_unit.size(); i++){
+        isError = new boolean[idsnat.size()];
+
+        for (int i = 0; i < ad_unit.size(); i++) {
             NativeAd n = new NativeAd(c, ad_unit.get(i));
             final int finalI = i;
             n.setAdListener(new NativeAdListener() {
@@ -59,14 +60,14 @@ public class EasyFAN {
 
                 @Override
                 public void onError(Ad ad, AdError adError) {
-                   // Log.e("MAIN", "onError: "+adError.getErrorMessage());
-                if(intre != null)
-                    intre.OnFail(adError.getErrorMessage()+ " el index => "+ finalI);
+                    // Log.e("MAIN", "onError: "+adError.getErrorMessage());
+                    if (intre != null)
+                        intre.OnFail(adError.getErrorMessage() + " el index => " + finalI);
                 }
 
                 @Override
                 public void onAdLoaded(Ad ad) {
-                    if(intre!=null){
+                    if (intre != null) {
                         intre.OnSuccess();
                     }
                 }
@@ -82,13 +83,13 @@ public class EasyFAN {
                 }
             });
             n.loadAd();
-           nativeAd.add(n);
-            
+            nativeAd.add(n);
+
         }
-    
+
     }
-    
-    public boolean allLoaded(){
+
+    public boolean allLoaded() {
         return nativeAd.get(nativeAd.size() - 1) != null && nativeAd.get(nativeAd.size() - 1).isAdLoaded();
     }
 
@@ -96,7 +97,8 @@ public class EasyFAN {
     private MediaView mediaView;
     private AdIconView iconView1;
     private ImageView iconView;
-    public void setupViews(final View banner_container, final int i, final int colorbck, final int textco){
+
+    public void setupViews(final View banner_container, final int i, final int colorbck, final int textco) {
 
         final TextView action;
         final TextView title_ad;
@@ -107,20 +109,17 @@ public class EasyFAN {
         final CardView background;
 
 
-
-
-
         action = banner_container.findViewById(R.id.callto);
         title_ad = banner_container.findViewById(R.id.title_ad);
         sponsor = banner_container.findViewById(R.id.sponsor_ad);
         desc_ad = banner_container.findViewById(R.id.sponsor_adw);
-  //      normal_view = itemView.findViewById(R.id.normal_view);
+        //      normal_view = itemView.findViewById(R.id.normal_view);
 
         button_action = banner_container.findViewById(R.id.button_action);
         try {
             mediaView = banner_container.findViewById(R.id.media_view);
             iconView = banner_container.findViewById(R.id.ad_icon_view);
-        }catch(Exception e){
+        } catch (Exception e) {
             iconView1 = banner_container.findViewById(R.id.ad_icon_view);
         }
 
@@ -133,11 +132,11 @@ public class EasyFAN {
         button_action.setCardBackgroundColor(colorbck);
         action.setTextColor(textco);
 
-        if(isRadius){
+        if (isRadius) {
             background.setRadius(0);
         }
 
-        if ( nativeAd.get(i) != null && nativeAd.get(i).isAdLoaded()) {
+        if (nativeAd.get(i) != null && nativeAd.get(i).isAdLoaded()) {
 
             String title = nativeAd.get(i).getAdvertiserName();
             String provider = nativeAd.get(i).getSponsoredTranslation();
@@ -145,41 +144,41 @@ public class EasyFAN {
             String patrocinador = nativeAd.get(i).getAdBodyText();
             String sp = nativeAd.get(i).getAdTranslation();
 
-          //  com.facebook.ads.AdChoicesView adChoicesView = new com.facebook.ads.AdChoicesView(context, nativeAd, true);
-if(nativeAd.get(i).getAdChoicesImageUrl() != null)
-            Picasso.get().load(Uri.parse(nativeAd.get(i).getAdChoicesImageUrl())).fit().into(ad_choices);
+            //  com.facebook.ads.AdChoicesView adChoicesView = new com.facebook.ads.AdChoicesView(context, nativeAd, true);
+            if (nativeAd.get(i).getAdChoicesImageUrl() != null)
+                Picasso.get().load(Uri.parse(nativeAd.get(i).getAdChoicesImageUrl())).fit().into(ad_choices);
 
             title_ad.setText(title);
             desc_ad.setText(patrocinador);
 
             sponsor.setText(sp);
 
-        //    ad_choices.addView(adChoicesView, 0);
-          //  Log.e("MAIN", "setupViews: COLOR => "+textco);
+            //    ad_choices.addView(adChoicesView, 0);
+            //  Log.e("MAIN", "setupViews: COLOR => "+textco);
             action.setText(boton_action);
 
 
             if (clickables.size() < 1) {
                 clickables.add(button_action);
-               // clickables.add(title_ad);
-               // clickables.add(sponsor);
+                // clickables.add(title_ad);
+                // clickables.add(sponsor);
                /* if(mediaView!=null)
                 clickables.add(mediaView);*/
                 clickables.add(action);
             } else if (!clickables.contains(button_action)) {
                 clickables.add(button_action);
-         //       clickables.add(title_ad);
-           //     if(mediaView!=null)
-             //   clickables.add(mediaView);
-               // clickables.add(sponsor);
+                //       clickables.add(title_ad);
+                //     if(mediaView!=null)
+                //   clickables.add(mediaView);
+                // clickables.add(sponsor);
                 clickables.add(action);
             }
 
-            if(mediaView!=null)
-            nativeAd.get(i).registerViewForInteraction(banner_container, mediaView, iconView, clickables);
+            if (mediaView != null)
+                nativeAd.get(i).registerViewForInteraction(banner_container, mediaView, iconView, clickables);
             else
                 nativeAd.get(i).registerViewForInteraction(banner_container, iconView1, clickables);
-        }else{
+        } else {
 
             nativeAd.get(i).setAdListener(new NativeAdListener() {
                 @Override
@@ -192,7 +191,7 @@ if(nativeAd.get(i).getAdChoicesImageUrl() != null)
                     String patrocinador = nativeAd.get(i).getAdBodyText();
                     String sp = nativeAd.get(i).getAdTranslation();
                     //  com.facebook.ads.AdChoicesView adChoicesView = new com.facebook.ads.AdChoicesView(context, nativeAd, true);
-                    if(nativeAd.get(i).getAdChoicesImageUrl() != null)
+                    if (nativeAd.get(i).getAdChoicesImageUrl() != null)
                         Picasso.get().load(Uri.parse(nativeAd.get(i).getAdChoicesImageUrl())).fit().into(ad_choices);
 
                     title_ad.setText(title);
@@ -205,21 +204,21 @@ if(nativeAd.get(i).getAdChoicesImageUrl() != null)
 
                     if (clickables.size() < 1) {
                         clickables.add(button_action);
-                       // clickables.add(title_ad);
-                       // clickables.add(sponsor);
+                        // clickables.add(title_ad);
+                        // clickables.add(sponsor);
                         //if(mediaView!=null)
-                     //       clickables.add(mediaView);
+                        //       clickables.add(mediaView);
                         clickables.add(action);
                     } else if (!clickables.contains(button_action)) {
                         clickables.add(button_action);
                         //clickables.add(title_ad);
                         //if(mediaView!=null)
-                          //  clickables.add(mediaView);
+                        //  clickables.add(mediaView);
                         //clickables.add(sponsor);
                         clickables.add(action);
                     }
 
-                    if(mediaView!=null)
+                    if (mediaView != null)
                         nativeAd.get(i).registerViewForInteraction(banner_container, mediaView, iconView, clickables);
                     else
                         nativeAd.get(i).registerViewForInteraction(banner_container, iconView1, clickables);
@@ -228,8 +227,7 @@ if(nativeAd.get(i).getAdChoicesImageUrl() != null)
                 @Override
                 public void onError(Ad ad, AdError adError) {
 
-                    isError.add(true);
-
+                    isError[i] = true;
                   /*  String title = nativeAd.get(i).getAdvertiserName();
                     String provider = nativeAd.get(i).getSponsoredTranslation();
                     String boton_action = nativeAd.get(i).getAdCallToAction();
@@ -240,7 +238,6 @@ if(nativeAd.get(i).getAdChoicesImageUrl() != null)
                     if(nativeAd.get(i).getAdChoicesImageUrl() != null)
                         Picasso.get().load(Uri.parse(nativeAd.get(i).getAdChoicesImageUrl())).fit().into(ad_choices);
 */
-
 
 
                 }
@@ -261,7 +258,7 @@ if(nativeAd.get(i).getAdChoicesImageUrl() != null)
                 }
             });
 
-            if(isError.size() > 0 && isError.get(i)){
+            if (isError.length > 0 && isError[i]) {
                 background.setCardBackgroundColor(colorbck);
                 title_ad.setText("Error");
                 desc_ad.setText("Error on load");
@@ -279,5 +276,5 @@ if(nativeAd.get(i).getAdChoicesImageUrl() != null)
         }
     }
 
-private ArrayList<Boolean> isError = new ArrayList<>();
+    private boolean[] isError;
 }
