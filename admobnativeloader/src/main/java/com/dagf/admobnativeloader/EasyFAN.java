@@ -39,7 +39,7 @@ public class EasyFAN {
     private OnNativeLoadInterface intre;
 
     public void setInterface(OnNativeLoadInterface dd) {
-        intre = dd;
+        this.intre = dd;
     }
 
     private ArrayList<String> idsnat = new ArrayList<>();
@@ -47,10 +47,16 @@ public class EasyFAN {
     public EasyFAN(Context c, ArrayList<String> ad_unit) {
         this.context = c;
         this.idsnat.addAll(ad_unit);
+
+
+    }
+
+
+    public void loadAds(){
         isError = new boolean[idsnat.size()];
 
-        for (int i = 0; i < ad_unit.size(); i++) {
-            NativeAd n = new NativeAd(c, ad_unit.get(i));
+        for (int i = 0; i < idsnat.size(); i++) {
+            NativeAd n = new NativeAd(context, idsnat.get(i));
             final int finalI = i;
             n.setAdListener(new NativeAdListener() {
                 @Override
@@ -86,9 +92,7 @@ public class EasyFAN {
             nativeAd.add(n);
 
         }
-
     }
-
     public boolean allLoaded() {
         return nativeAd.get(nativeAd.size() - 1) != null && nativeAd.get(nativeAd.size() - 1).isAdLoaded();
     }
