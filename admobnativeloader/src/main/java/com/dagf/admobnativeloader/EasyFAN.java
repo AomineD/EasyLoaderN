@@ -42,6 +42,12 @@ public class EasyFAN {
         this.intre = dd;
     }
 
+    private boolean isDebug;
+
+    public void setDebug(boolean s){
+        this.isDebug = s;
+    }
+
     private ArrayList<String> idsnat = new ArrayList<>();
 
     public EasyFAN(Context c, ArrayList<String> ad_unit) {
@@ -66,15 +72,25 @@ public class EasyFAN {
 
                 @Override
                 public void onError(Ad ad, AdError adError) {
-                    // Log.e("MAIN", "onError: "+adError.getErrorMessage());
+
+
+                    if(isDebug)
+                    Log.e("MAIN", "NATIVOS onError: "+adError.getErrorMessage() + " el index => " + finalI);
+
                     if (intre != null)
                         intre.OnFail(adError.getErrorMessage() + " el index => " + finalI);
+
+
                 }
 
                 @Override
                 public void onAdLoaded(Ad ad) {
                     if (intre != null) {
                         intre.OnSuccess();
+                    }
+
+                    if(isDebug){
+                        Log.e("MAIN", "NATIVOS onAdLoaded: "+finalI);
                     }
                 }
 
@@ -91,6 +107,8 @@ public class EasyFAN {
             n.loadAd();
             nativeAd.add(n);
 
+            if(isDebug)
+            Log.e("MAIN", "loadAds: loading native "+finalI);
         }
     }
     public boolean allLoaded() {
