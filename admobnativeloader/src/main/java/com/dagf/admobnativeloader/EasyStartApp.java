@@ -93,6 +93,7 @@ if(isTest){
         final TextView sponsor;
         final CardView button_action;
         final CardView background;
+        final ImageView ad_icon_play;
 
 
         action = banner_container.findViewById(R.id.callto);
@@ -106,6 +107,7 @@ if(isTest){
         background = banner_container.findViewById(R.id.card);
         ad_choices = banner_container.findViewById(R.id.media_view);
         ad_icon = banner_container.findViewById(R.id.ad_icon_view);
+        ad_icon_play = banner_container.findViewById(R.id.ad_choices);
         background.setCardBackgroundColor(colorbck);
         desc_ad.setTextColor(textco);
         title_ad.setTextColor(textco);
@@ -127,16 +129,21 @@ if(isTest){
 
             if(n.getSecondaryImageUrl() != null && !n.getSecondaryImageUrl().isEmpty() && ad_choices != null)
             {
-                Picasso.get().load(Uri.parse(n.getSecondaryImageUrl())).into(ad_choices);
+                Picasso.get().load(Uri.parse(n.getSecondaryImageUrl())).fit().into(ad_choices);
             }
 
             if(n.getCampaignAction() == StartAppNativeAd.CampaignAction.OPEN_MARKET){
+                Picasso.get().load(R.drawable.google_play).into(ad_icon_play);
+                String rat =  n.getRating()+"★"+"\nGoogle Play";
+                sponsor.setText(rat);
                 action.setText("Install");
             }else{
-                action.setText("Abrir");
+                action.setText("Open");
+                sponsor.setText("Anuncio");
             }
 
-            sponsor.setText("Anuncio");
+
+
 
             ArrayList<View> s = new ArrayList<>();
             s.add(button_action);

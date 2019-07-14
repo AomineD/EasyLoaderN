@@ -41,12 +41,12 @@ new Timer().schedule(new TimerTask() {
             public void run() {
                 Log.e("MAIN", "run: s "+(x != null));
 
-                easyStartApp.setupNatives(x.getNativeSmall(), 0, getResources().getColor(R.color.white), getResources().getColor(R.color.black));
+                easyStartApp.setupNatives(x.getNativeLayout(), 0, getResources().getColor(R.color.white), getResources().getColor(R.color.black));
 
             }
         });
     }
-}, 18500);
+}, 13500);
 
     }
 }
