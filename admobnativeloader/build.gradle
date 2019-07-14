@@ -40,4 +40,5 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.android.support:recyclerview-v7:25.3.1' // Required Dependency by Audience Network SDK
     implementation 'com.facebook.android:audience-network-sdk:5.4.1'
+    implementation 'com.startapp:inapp-sdk:4.0.2'
 }

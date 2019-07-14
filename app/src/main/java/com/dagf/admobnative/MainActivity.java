@@ -6,6 +6,10 @@ import android.util.Log;
 import android.view.View;
 
 import com.dagf.admobnativeloader.EasyFAN;
+import com.dagf.admobnativeloader.EasyStartApp;
+import com.dagf.admobnativeloader.NativeSAPView;
+import com.startapp.android.publish.adsCommon.SDKAdPreferences;
+import com.startapp.android.publish.adsCommon.StartAppSDK;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -19,10 +23,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        ArrayList<String> ids = new ArrayList<>();
-        ids.add("615153802242783_615156668909163");
-final EasyFAN easyFAN = new EasyFAN(this, ids);
-        final View x = findViewById(R.id.native1);
+        StartAppSDK.init(this,
+                "Your App ID",
+                new SDKAdPreferences()
+                        .setAge(35));
+
+        final EasyStartApp easyStartApp = new EasyStartApp(this, 1);
+        easyStartApp.setTest(true);
+easyStartApp.loadAds();
+
+        final NativeSAPView x = findViewById(R.id.native1);
 new Timer().schedule(new TimerTask() {
     @Override
     public void run() {
@@ -31,12 +41,12 @@ new Timer().schedule(new TimerTask() {
             public void run() {
                 Log.e("MAIN", "run: s "+(x != null));
 
-                easyFAN.setupViews(x, 0, getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorPrimary));
+                easyStartApp.setupNatives(x.getNativeSmall(), 0, getResources().getColor(R.color.white), getResources().getColor(R.color.black));
 
             }
         });
     }
-}, 9500);
+}, 18500);
 
     }
 }
