@@ -1,5 +1,6 @@
 package com.dagf.admobnativeloader;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.ads.AdSettings;
 import com.squareup.picasso.Picasso;
 import com.startapp.android.publish.ads.nativead.NativeAdDetails;
 import com.startapp.android.publish.ads.nativead.NativeAdPreferences;
@@ -16,6 +18,8 @@ import com.startapp.android.publish.adsCommon.Ad;
 import com.startapp.android.publish.adsCommon.adListeners.AdEventListener;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class EasyStartApp {
 
@@ -48,6 +52,11 @@ this.mContext = c;
 
     private onLoadNative listener;
 
+    public void setDelay(long del){
+        this.delayout = del;
+    }
+
+    private long delayout = 7;
     public void setListener(onLoadNative listener1){
         this.listener = listener1;
     }
@@ -66,11 +75,23 @@ this.mContext = c;
             @Override
             public void onReceiveAd(Ad ad) {
 
+                //
                 if(isTest){
                     Log.e("MAIN", "onReceiveAd STARTAPP: "+ad.isReady() );
                 }
                 if(listener != null){
-                    listener.onSuccess();
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        ((Activity)mContext).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                listener.onSuccess();
+                            }
+                        });
+                    }
+                }, delayout * 1000);
+
                 }
 
 nativos = nativeAd.getNativeAds();

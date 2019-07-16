@@ -13,4 +13,12 @@
 
    </com.dagf.admobnativeloader.NativeSAPView>
 
+   <com.dagf.admobnativeloader.NativeSAPView
+       android:id="@+id/native2"
+       android:layout_below="@id/native1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+
+   </com.dagf.admobnativeloader.NativeSAPView>
+
 </RelativeLayout>

@@ -33,20 +33,20 @@ public class MainActivity extends AppCompatActivity {
 easyStartApp.loadAds();
 
         final NativeSAPView x = findViewById(R.id.native1);
-new Timer().schedule(new TimerTask() {
-    @Override
-    public void run() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Log.e("MAIN", "run: s "+(x != null));
+        final NativeSAPView x2 = findViewById(R.id.native2);
 
+        easyStartApp.setListener(new EasyStartApp.onLoadNative() {
+            @Override
+            public void onSuccess() {
                 easyStartApp.setupNatives(x.getNativeLayout(), 0, getResources().getColor(R.color.white), getResources().getColor(R.color.black));
+                easyStartApp.setupNatives(x2.getNativeLayout(), 0, getResources().getColor(R.color.white), getResources().getColor(R.color.black));
+            }
+
+            @Override
+            public void onError(String errno) {
 
             }
         });
-    }
-}, 13500);
 
     }
 }
