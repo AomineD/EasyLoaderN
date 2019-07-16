@@ -41,6 +41,16 @@ this.mContext = c;
     }
 
     private boolean isTest;
+    public interface onLoadNative{
+        void onSuccess();
+        void onError(String errno);
+    }
+
+    private onLoadNative listener;
+
+    public void setListener(onLoadNative listener1){
+        this.listener = listener1;
+    }
 
     public void loadAds(){
 
@@ -50,7 +60,7 @@ this.mContext = c;
 
         preferences.setAdsNumber(listing);
         preferences.setPrimaryImageSize(2);
-        preferences.setSecondaryImageSize(4);
+        preferences.setSecondaryImageSize(5);
 
         AdEventListener adEventListener = new AdEventListener() {
             @Override
@@ -58,6 +68,9 @@ this.mContext = c;
 
                 if(isTest){
                     Log.e("MAIN", "onReceiveAd STARTAPP: "+ad.isReady() );
+                }
+                if(listener != null){
+                    listener.onSuccess();
                 }
 
 nativos = nativeAd.getNativeAds();
@@ -68,6 +81,10 @@ nativos = nativeAd.getNativeAds();
 if(isTest){
     Log.e("MAIN", "onFailedToReceiveAd: "+ad.getErrorMessage() );
 }
+
+                if(listener != null){
+                    listener.onError(ad.getErrorMessage());
+                }
             }
         };
 
