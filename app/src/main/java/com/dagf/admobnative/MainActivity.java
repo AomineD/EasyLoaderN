@@ -1,19 +1,16 @@
 package com.dagf.admobnative;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.dagf.admobnativeloader.EasyFAN;
-import com.dagf.admobnativeloader.EasyStartApp;
-import com.dagf.admobnativeloader.NativeSAPView;
-import com.startapp.android.publish.adsCommon.SDKAdPreferences;
-import com.startapp.android.publish.adsCommon.StartAppSDK;
+import com.facebook.ads.AdSettings;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import com.dagf.admobnative.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,30 +20,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        StartAppSDK.init(this,
-                "Your App ID",
-                new SDKAdPreferences()
-                        .setAge(35));
+        ArrayList<String> idsbanner = new ArrayList<>();
 
-        final EasyStartApp easyStartApp = new EasyStartApp(this, 1);
-        easyStartApp.setTest(true);
-easyStartApp.loadAds();
+        idsbanner.add("410359413142447_626423458202707");
 
-        final NativeSAPView x = findViewById(R.id.native1);
-        final NativeSAPView x2 = findViewById(R.id.native2);
+        AdSettings.setDebugBuild(true);
 
-        easyStartApp.setListener(new EasyStartApp.onLoadNative() {
+        final EasyFAN easyFAN = new EasyFAN(this, idsbanner);
+
+        easyFAN.loadBannerAds();
+
+        easyFAN.setDebug(true);
+       final View v = findViewById(R.id.banner_native);
+
+        new Timer().schedule(new TimerTask() {
             @Override
-            public void onSuccess() {
-                easyStartApp.setupNatives(x.getNativeLayout(), 0, getResources().getColor(R.color.white), getResources().getColor(R.color.black));
-                easyStartApp.setupNatives(x2.getNativeLayout(), 0, getResources().getColor(R.color.white), getResources().getColor(R.color.black));
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                       easyFAN.setupNativeView(v, 0, getResources().getColor(R.color.white),getResources().getColor(R.color.black) );
+                    }
+                });
             }
-
-            @Override
-            public void onError(String errno) {
-
-            }
-        });
+        }, 2000);
 
     }
 }

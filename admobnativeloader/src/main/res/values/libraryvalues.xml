@@ -12,4 +12,6 @@
 
     <color name="bg_red_cf215d">#CF2124</color>
     <color name="tran">#00ffffff</color>
+
+    <color name="blue_fb">#1e88e5</color>
 </resources>

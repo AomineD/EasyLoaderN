@@ -3,13 +3,12 @@ package com.dagf.admobnativeloader;
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
-import android.support.v7.widget.CardView;
+import androidx.cardview.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.ads.AdSettings;
 import com.squareup.picasso.Picasso;
 import com.startapp.android.publish.ads.nativead.NativeAdDetails;
 import com.startapp.android.publish.ads.nativead.NativeAdPreferences;

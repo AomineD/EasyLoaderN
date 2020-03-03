@@ -6,19 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-   <com.dagf.admobnativeloader.NativeSAPView
-       android:id="@+id/native1"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content">
-
-   </com.dagf.admobnativeloader.NativeSAPView>
-
-   <com.dagf.admobnativeloader.NativeSAPView
-       android:id="@+id/native2"
-       android:layout_below="@id/native1"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content">
-
-   </com.dagf.admobnativeloader.NativeSAPView>
+<include
+   android:id="@+id/banner_native"
+    layout="@layout/native_ad_facebook_banner"
+   />
 
 </RelativeLayout>
