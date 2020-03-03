@@ -390,8 +390,8 @@ public class EasyFAN {
         desc_ad.setTextColor(textco);
         title_ad.setTextColor(textco);
         sponsor.setTextColor(textco);
-        button_action.setCardBackgroundColor(colorbck);
-        action.setTextColor(textco);
+        button_action.setCardBackgroundColor(context.getResources().getColor(R.color.blue_fb));
+        action.setTextColor(colorbck);
 
         if (isRadius) {
             background.setRadius(0);
@@ -525,8 +525,8 @@ public class EasyFAN {
                 //    ad_choices.addView(adChoicesView, 0);
                 //  Log.e("MAIN", "setupViews: COLOR => "+textco);
                 action.setText("Error");
-                button_action.setCardBackgroundColor(colorbck);
-                action.setTextColor(textco);
+                //button_action.setCardBackgroundColor(colorbck);
+                action.setTextColor(colorbck);
             }
 
         }
