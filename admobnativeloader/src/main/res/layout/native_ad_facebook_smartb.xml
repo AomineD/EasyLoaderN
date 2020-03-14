@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:id="@+id/banner_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="2dp"
+    android:visibility="visible">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        card_view:cardBackgroundColor="@color/white">
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:id="@+id/laytop"
+    android:layout_centerHorizontal="true"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button_action"
+        android:gravity="center_horizontal"
+        >
+
+        <TextView
+            android:id="@+id/sponsor_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="25dp"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            android:text="Publicidad"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/ad_choices"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp">
+        </ImageView>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+    <TextView
+        android:id="@+id/title_ad"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/roboto_black"
+        android:gravity="center"
+        android:text="@string/loading_ad"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/sponsor_adw"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="-1dp"
+        android:fontFamily="@font/roboto"
+        android:padding="2dp"
+        android:text="Loading"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:visibility="visible" />
+    </LinearLayout>
+</LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/button_action"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_below="@id/ad_icon_view"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="5dp"
+        card_view:cardBackgroundColor="@color/white">
+
+        <TextView
+            android:id="@+id/callto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="Install"
+            android:textColor="@color/black" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/ad_icon_view"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+
+      android:layout_below="@id/laytop"
+        >
+
+    </ImageView>
+
+
+</RelativeLayout>
