@@ -79,7 +79,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/button_action"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         app:cardCornerRadius="5dp"
         android:layout_gravity="center_vertical"
