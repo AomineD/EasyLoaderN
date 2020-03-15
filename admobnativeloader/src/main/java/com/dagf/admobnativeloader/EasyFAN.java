@@ -362,6 +362,14 @@ public class EasyFAN {
         }
     }
 
+    public boolean isLoadedBanner(int i){
+        if(nativeBannerAd.get(i) != null && nativeBannerAd.get(i).isAdLoaded()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
     public void setupNativeView(final View banner_container, final int i, final int colorbck, final int textco) {
 
