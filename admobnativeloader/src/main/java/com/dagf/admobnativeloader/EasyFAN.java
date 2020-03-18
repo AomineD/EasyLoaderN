@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdIconView;
+import com.facebook.ads.AdListener;
 import com.facebook.ads.MediaView;
 import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdListener;
@@ -18,6 +19,8 @@ import com.facebook.ads.NativeBannerAd;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class EasyFAN {
     private ArrayList<View> clickables = new ArrayList<>();
@@ -305,6 +308,56 @@ public class EasyFAN {
     private boolean[] isError;
 
 
+    private void loadBannerAgain(final int index){
+
+        NativeBannerAd bannerAd = new NativeBannerAd(context, nativeBannerAd.get(index).getPlacementId());
+
+
+
+     //   Log.e("MAIN", "loadBannerAgain: "+index );
+
+        bannerAd.setAdListener(new NativeAdListener(){
+            @Override
+            public void onMediaDownloaded(Ad ad) {
+
+                for(int i=0; i < nativeViewObjs.size(); i++){
+                    if(nativeViewObjs.get(i).index_native == index){
+                        NativeViewObj obj = nativeViewObjs.get(i);
+
+                        setupNativeView(obj.native_view, index, obj.colorBack, obj.colorText);
+                    }
+                }
+       //         Log.e("MAIN", "now load: "+index );
+            }
+
+            @Override
+            public void onError(Ad ad, AdError adError) {
+          //     Log.e("MAIN", "loadBannerAgain error: "+index );
+new Timer().schedule(canReload(), 7000);
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+
+            }
+        });
+
+
+        bannerAd.loadAd();
+
+        nativeBannerAd.set(index, bannerAd);
+    }
+
     // Banner nativo aaa ===============================================
 
 
@@ -370,6 +423,7 @@ public class EasyFAN {
         }
     }
 
+ArrayList<NativeViewObj> nativeViewObjs = new ArrayList<>();
 
     public void setupNativeView(final View banner_container, final int i, final int colorbck, final int textco) {
 
@@ -537,7 +591,36 @@ public class EasyFAN {
                 action.setTextColor(colorbck);
             }
 
+            new Timer().schedule(canReload(), 5000);
+
         }
+
+        NativeViewObj viewObj = new NativeViewObj();
+        viewObj.colorBack = colorbck;
+        viewObj.colorText = textco;
+        viewObj.native_view = banner_container;
+        viewObj.index_native = i;
+
+    nativeViewObjs.add(viewObj);
+
+    }
+
+
+    private TimerTask canReload(){
+
+        return new TimerTask() {
+            @Override
+            public void run() {
+
+                for(int i=0; i < nativeBannerAd.size(); i++){
+                    if(!nativeBannerAd.get(i).isAdLoaded()){
+                        loadBannerAgain(i);
+                    }
+                }
+
+            }
+        };
+
     }
 
 

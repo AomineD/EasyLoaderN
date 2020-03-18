@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         idsbanner.add("410359413142447_626423458202707");
 
-        AdSettings.setDebugBuild(true);
+        //AdSettings.setDebugBuild(true);
 
         final EasyFAN easyFAN = new EasyFAN(this, idsbanner);
 
