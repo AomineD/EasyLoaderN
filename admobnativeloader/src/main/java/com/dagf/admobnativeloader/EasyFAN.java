@@ -3,6 +3,8 @@ package com.dagf.admobnativeloader;
 import android.content.Context;
 import android.net.Uri;
 import androidx.cardview.widget.CardView;
+
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -333,7 +335,7 @@ public class EasyFAN {
             @Override
             public void onError(Ad ad, AdError adError) {
           //     Log.e("MAIN", "loadBannerAgain error: "+index );
-new Timer().schedule(canReload(), 7000);
+//new Timer().schedule(canReload(), 7000);
             }
 
             @Override
@@ -459,6 +461,10 @@ ArrayList<NativeViewObj> nativeViewObjs = new ArrayList<>();
             background.setRadius(0);
         }
 
+        if(nativeBannerAd.get(i) == null){
+            return;
+        }
+
         if (nativeBannerAd.get(i) != null && nativeBannerAd.get(i).isAdLoaded()) {
 
             String title = nativeBannerAd.get(i).getAdvertiserName();
@@ -556,7 +562,7 @@ ArrayList<NativeViewObj> nativeViewObjs = new ArrayList<>();
                     if(nativeAd.get(i).getAdChoicesImageUrl() != null)
                         Picasso.get().load(Uri.parse(nativeAd.get(i).getAdChoicesImageUrl())).fit().into(ad_choices);
 */
-
+               //     loadBannerAgain(i);
 
                 }
 
@@ -591,7 +597,12 @@ ArrayList<NativeViewObj> nativeViewObjs = new ArrayList<>();
                 action.setTextColor(colorbck);
             }
 
-            new Timer().schedule(canReload(), 5000);
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    canReload(i);
+                }
+            }, 4000);
 
         }
 
@@ -606,20 +617,20 @@ ArrayList<NativeViewObj> nativeViewObjs = new ArrayList<>();
     }
 
 
-    private TimerTask canReload(){
+    private void canReload(final int index){
 
-        return new TimerTask() {
+
+        new AsyncTask<Void, Void, Void>() {
             @Override
-            public void run() {
-
-                for(int i=0; i < nativeBannerAd.size(); i++){
-                    if(!nativeBannerAd.get(i).isAdLoaded()){
-                        loadBannerAgain(i);
-                    }
+            protected Void doInBackground(Void... params) {
+                if(!nativeBannerAd.get(index).isAdLoaded()){
+                    loadBannerAgain(index);
                 }
 
+                return null;
             }
-        };
+        }.execute();
+
 
     }
 
