@@ -562,7 +562,7 @@ ArrayList<NativeViewObj> nativeViewObjs = new ArrayList<>();
                     if(nativeAd.get(i).getAdChoicesImageUrl() != null)
                         Picasso.get().load(Uri.parse(nativeAd.get(i).getAdChoicesImageUrl())).fit().into(ad_choices);
 */
-               //     loadBannerAgain(i);
+                   loadBannerAgain(i);
 
                 }
 
@@ -597,12 +597,13 @@ ArrayList<NativeViewObj> nativeViewObjs = new ArrayList<>();
                 action.setTextColor(colorbck);
             }
 
-            new Timer().schedule(new TimerTask() {
+        /*    new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
                     canReload(i);
                 }
             }, 4000);
+-*/
 
         }
 
