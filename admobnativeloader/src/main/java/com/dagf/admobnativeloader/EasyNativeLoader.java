@@ -331,7 +331,7 @@ if(adcount > 0){
     }
 
     public UnifiedNativeAd getSomeNative(int index){
-        if(nativeAdsAdapter.get(index) != null){
+        if(nativeAdsAdapter.size() > index && nativeAdsAdapter.get(index) != null){
             return nativeAdsAdapter.get(index);
         }else{
             return null;
