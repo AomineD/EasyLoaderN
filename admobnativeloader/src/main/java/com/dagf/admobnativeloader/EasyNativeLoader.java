@@ -5,6 +5,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import androidx.cardview.widget.CardView;
+
+import android.net.Uri;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -17,8 +19,10 @@ import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.formats.MediaView;
+import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.formats.UnifiedNativeAdView;
+import com.squareup.picasso.Picasso;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -301,12 +305,16 @@ if(adcount > 0){
     // ============================================ SETUP NATIVES ADAPTER ================================================ //
   // ===================================================================================================================== //
     private ArrayList<UnifiedNativeAd> nativeAdsAdapter = new ArrayList<>();
+    public boolean isLoading = true;
 
+    private AdLoader adLoader;
     public void setupAdapterNatives(int Cantity){
-        AdLoader adLoader = new AdLoader.Builder(contexto, ad_unit).forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+         adLoader = new AdLoader.Builder(contexto, ad_unit).forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
             @Override
             public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+               // Log.e("MAIN", "onUnifiedNativeAdLoaded: "+adLoader.isLoading() );
                 nativeAdsAdapter.add(unifiedNativeAd);
+                isLoading = adLoader.isLoading();
             }
         })
 
@@ -323,11 +331,12 @@ if(adcount > 0){
                     public void onAdLoaded() {
                         super.onAdLoaded();
                     }
-                })
+                }).withNativeAdOptions(new NativeAdOptions.Builder().setRequestMultipleImages(true).setReturnUrlsForImageAssets(true).build())
                 .build();
 
 
         adLoader.loadAds(new AdRequest.Builder().build(), Cantity);
+        isLoading = true;
     }
 
     public UnifiedNativeAd getSomeNative(int index){
@@ -388,8 +397,15 @@ if(adcount > 0){
             title_ad.setText(title);
             sponsor.setText(patrocinador);
             action.setText(boton_action);
-            if(nativeAdsAdapter.get(wht).getIcon() != null)
+            Log.e("MAIN", "SetupHolder: "+(nativeAdsAdapter.get(wht).getIcon() != null) );
+            if(nativeAdsAdapter.get(wht).getIcon() != null) {
                 iconView.setImageDrawable(nativeAdsAdapter.get(wht).getIcon().getDrawable());
+                Log.e("MAIN", "SetupHolder: "+nativeAdsAdapter.get(wht).getIcon().getUri().toString() );
+            }
+            else{
+               // Log.e("MAIN", "SetupHolder: "+nativeAdsAdapter.get(wht).getImages().size() );
+               // Log.e("MAIN", "SetupHolder: url "+nativeAdsAdapter.get(wht).getImages().get(0).getUri().toString() );
+            }
 
             //  Picasso.get().load(MainActivity.nativeOrig.getAdChoicesInfo().getImages().get(0).getUri()).fit().into(iconView_1);
 
