@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-<include
-   android:id="@+id/banner_native"
-    layout="@layout/native_ad"
-   />
+ <include
+     android:id="@+id/banner_native"
+     layout="@layout/native_ad"
+     />
 
 </RelativeLayout>
