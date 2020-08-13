@@ -310,13 +310,13 @@ if(adcount > 0){
     public ArrayList<UnifiedNativeAd> nativeAdsAdapter = new ArrayList<>();
     public boolean isLoading = true;
 
-//    private AdLoader adLoader;
-    public UnifiedNativeAd.OnUnifiedNativeAdLoadedListener setupAdapterNatives(final AdLoader adLoader){
+    public AdLoader adLoader;
+    public UnifiedNativeAd.OnUnifiedNativeAdLoadedListener setupAdapterNatives(){
 
        return new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
             @Override
             public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
-               // Log.e("MAIN", "onUnifiedNativeAdLoaded: "+adLoader.isLoading() );
+               Log.e("MAIN", "onUnifiedNativeAdLoaded: "+adLoader.isLoading() );
                 nativeAdsAdapter.add(unifiedNativeAd);
                 isLoading = adLoader.isLoading();
             }

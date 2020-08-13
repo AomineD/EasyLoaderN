@@ -70,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
        builder.forUnifiedNativeAd(easyNativeLoader.setupAdapterNatives());
 
-       builder.build().loadAds(new AdRequest.Builder().build(), 4);
+      AdLoader  adLoader = builder.build();
+      adLoader.loadAds(new AdRequest.Builder().build(), 4);
+
+      easyNativeLoader.adLoader = adLoader;
 
         new Timer().schedule(new TimerTask() {
             @Override
