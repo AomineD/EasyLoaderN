@@ -43,37 +43,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-    /*   ArrayList<String> idsbanner = new ArrayList<>();
+       ArrayList<String> idsbanner = new ArrayList<>();
 
-        idsbanner.add("410359413142447_626423458202707");
+        idsbanner.add("2505373932857364_3418640408197374");
 
-        //AdSettings.setDebugBuild(true);
+        AdSettings.setDebugBuild(true);
 
         final EasyFAN easyFAN = new EasyFAN(this, idsbanner);
 
-        easyFAN.loadBannerAds();
+        easyFAN.loadAds();
 
-        easyFAN.setDebug(true);*/
+        easyFAN.setDebug(true);
         // Initialize the Mobile Ads SDK.
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {}
         });
 
-        final EasyNativeLoader easyNativeLoader = new EasyNativeLoader(this);
+    //    final EasyFAN easyNativeLoader = new EasyFAN(this, );
 
 
 
        final View v = findViewById(R.id.banner_native);
 
-       AdLoader.Builder builder = new AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110");
+     /*  AdLoader.Builder builder = new AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110");
 
        builder.forUnifiedNativeAd(easyNativeLoader.setupAdapterNatives());
 
       AdLoader  adLoader = builder.build();
       adLoader.loadAds(new AdRequest.Builder().build(), 4);
 
-      easyNativeLoader.adLoader = adLoader;
+      easyNativeLoader.adLoader = adLoader;*/
 
         new Timer().schedule(new TimerTask() {
             @Override
@@ -85,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
                             omnde = 0;
                         }
 
-                        UnifiedNativeAd un = easyNativeLoader.getNat(omnde);
+                        //UnifiedNativeAd un = easyNativeLoader.getNat(omnde);
 
-                       easyNativeLoader.populateUnifiedNativeAdView(un,(UnifiedNativeAdView) v);
+                       easyFAN.setupViews(v , 0, getResources().getColor(R.color.white), getResources().getColor(R.color.black));
                        omnde++;
                     }
                 });

@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
-import com.facebook.ads.AdIconView;
 import com.facebook.ads.AdListener;
 import com.facebook.ads.MediaView;
 import com.facebook.ads.NativeAd;
@@ -69,7 +68,7 @@ public class EasyFAN {
         for (int i = 0; i < idsnat.size(); i++) {
             NativeAd n = new NativeAd(context, idsnat.get(i));
             final int finalI = i;
-            n.setAdListener(new NativeAdListener() {
+            n.buildLoadAdConfig().withAdListener(new NativeAdListener() {
                 @Override
                 public void onMediaDownloaded(Ad ad) {
 
@@ -108,7 +107,7 @@ public class EasyFAN {
                 public void onLoggingImpression(Ad ad) {
 
                 }
-            });
+            }).build();
             n.loadAd();
             nativeAd.add(n);
 
@@ -122,7 +121,7 @@ public class EasyFAN {
 
 
     private MediaView mediaView;
-    private AdIconView iconView1;
+    private MediaView iconView1;
     private ImageView iconView;
 
     public void setupViews(final View banner_container, final int i, final int colorbck, final int textco) {
@@ -211,7 +210,7 @@ public class EasyFAN {
                   }
         } else {
 
-            nativeAd.get(i).setAdListener(new NativeAdListener() {
+            nativeAd.get(i).buildLoadAdConfig().withAdListener(new NativeAdListener() {
                 @Override
                 public void onMediaDownloaded(Ad ad) {
                     // ============== NATIVO CARGO ================== //
@@ -287,7 +286,7 @@ public class EasyFAN {
                 public void onLoggingImpression(Ad ad) {
 
                 }
-            });
+            }).build();
 
             if (isError.length > 0 && isError[i]) {
                 background.setCardBackgroundColor(colorbck);
@@ -318,7 +317,7 @@ public class EasyFAN {
 
      //   Log.e("MAIN", "loadBannerAgain: "+index );
 
-        bannerAd.setAdListener(new NativeAdListener(){
+        bannerAd.buildLoadAdConfig().withAdListener(new NativeAdListener(){
             @Override
             public void onMediaDownloaded(Ad ad) {
 
@@ -352,7 +351,7 @@ public class EasyFAN {
             public void onLoggingImpression(Ad ad) {
 
             }
-        });
+        }).build();
 
 
         bannerAd.loadAd();
@@ -369,7 +368,7 @@ public class EasyFAN {
         for (int i = 0; i < idsnat.size(); i++) {
             NativeBannerAd n = new NativeBannerAd(context, idsnat.get(i));
             final int finalI = i;
-            n.setAdListener(new NativeAdListener() {
+            n.buildLoadAdConfig().withAdListener(new NativeAdListener() {
                 @Override
                 public void onMediaDownloaded(Ad ad) {
 
@@ -408,7 +407,7 @@ public class EasyFAN {
                 public void onLoggingImpression(Ad ad) {
 
                 }
-            });
+            }).build();
             n.loadAd();
             nativeBannerAd.add(n);
 
@@ -508,7 +507,7 @@ ArrayList<NativeViewObj> nativeViewObjs = new ArrayList<>();
 
         } else {
 
-            nativeBannerAd.get(i).setAdListener(new NativeAdListener() {
+            nativeBannerAd.get(i).buildLoadAdConfig().withAdListener(new NativeAdListener() {
                 @Override
                 public void onMediaDownloaded(Ad ad) {
                     // ============== NATIVO CARGO ================== //
@@ -580,7 +579,7 @@ ArrayList<NativeViewObj> nativeViewObjs = new ArrayList<>();
                 public void onLoggingImpression(Ad ad) {
 
                 }
-            });
+            }).build();
 
             if (isError.length > 0 && isError[i]) {
                 background.setCardBackgroundColor(colorbck);

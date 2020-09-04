@@ -8,7 +8,7 @@
 
  <include
      android:id="@+id/banner_native"
-     layout="@layout/native_ad"
+     layout="@layout/native_ad_facebook"
      />
 
 </RelativeLayout>
