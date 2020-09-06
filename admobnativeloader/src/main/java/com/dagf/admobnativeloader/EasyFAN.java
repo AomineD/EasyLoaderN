@@ -30,9 +30,9 @@ public class EasyFAN {
     private Context context;
 
     public interface OnNativeLoadInterface {
-        void OnSuccess();
+        void OnSuccess(int pos);
 
-        void OnFail(String ss);
+        void OnFail(String ss, int pos);
     }
 
     public void setRadius(boolean radius) {
@@ -82,7 +82,7 @@ public class EasyFAN {
                     Log.e("MAIN", "NATIVOS onError: "+adError.getErrorMessage() + " el index => " + finalI);
 
                     if (intre != null)
-                        intre.OnFail(adError.getErrorMessage() + " el index => " + finalI);
+                        intre.OnFail(adError.getErrorMessage() + " el index => " + finalI, finalI);
 
 
                 }
@@ -90,7 +90,7 @@ public class EasyFAN {
                 @Override
                 public void onAdLoaded(Ad ad) {
                     if (intre != null) {
-                        intre.OnSuccess();
+                        intre.OnSuccess(finalI);
                     }
 
                     if(isDebug){
@@ -382,7 +382,7 @@ public class EasyFAN {
                         Log.e("MAIN", "NATIVOS onError: "+adError.getErrorMessage() + " el index => " + finalI);
 
                     if (intre != null)
-                        intre.OnFail(adError.getErrorMessage() + " el index => " + finalI);
+                        intre.OnFail(adError.getErrorMessage() + " el index => " + finalI, finalI);
 
 
                 }
@@ -390,7 +390,7 @@ public class EasyFAN {
                 @Override
                 public void onAdLoaded(Ad ad) {
                     if (intre != null) {
-                        intre.OnSuccess();
+                        intre.OnSuccess(finalI);
                     }
 
                     if(isDebug){

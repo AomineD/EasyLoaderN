@@ -75,24 +75,17 @@ public class MainActivity extends AppCompatActivity {
 
       easyNativeLoader.adLoader = adLoader;*/
 
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(omnde >=3){
-                            omnde = 0;
-                        }
+    easyFAN.setInterface(new EasyFAN.OnNativeLoadInterface() {
+        @Override
+        public void OnSuccess(int pos) {
+            easyFAN.setupViews(v , pos, getResources().getColor(R.color.white), getResources().getColor(R.color.black));
+        }
 
-                        //UnifiedNativeAd un = easyNativeLoader.getNat(omnde);
+        @Override
+        public void OnFail(String ss) {
 
-                       easyFAN.setupViews(v , 0, getResources().getColor(R.color.white), getResources().getColor(R.color.black));
-                       omnde++;
-                    }
-                });
-            }
-        }, 10000, 7000);
+        }
+    });
 
     }
     private int omnde = 0;
