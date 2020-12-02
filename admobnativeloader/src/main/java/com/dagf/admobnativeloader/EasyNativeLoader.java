@@ -56,11 +56,24 @@ public class EasyNativeLoader {
         void OnFailed(String errno);
     }
 
+    public interface NativeListener{
+        void onLoadNative(int pos);
+        void onFailed(String erno);
+    }
+
     private EasyListener easyListener;
 
     public void setEasyListener(EasyListener k){
         this.easyListener = k;
     }
+
+    public void setNativeListener(NativeListener nativeListener) {
+        this.nativeListener = nativeListener;
+    }
+
+    private NativeListener nativeListener;
+
+
 
     public void SetupIntersticial(final String ad_unit_int){
         interstitialAd = new InterstitialAd(contexto);
@@ -317,7 +330,11 @@ if(adcount > 0){
             @Override
             public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
                Log.e("MAIN", "onUnifiedNativeAdLoaded: "+adLoader.isLoading() );
+
                 nativeAdsAdapter.add(unifiedNativeAd);
+                if(nativeListener != null){
+nativeListener.onLoadNative(nativeAdsAdapter.size() - 1);
+                }
                 isLoading = adLoader.isLoading();
             }
         };
@@ -436,7 +453,9 @@ if(adcount > 0){
 
     public  void populateUnifiedNativeAdView(UnifiedNativeAd nativeAd, UnifiedNativeAdView adView) {
         // Set the media view.
+        adView.setVisibility(View.VISIBLE);
         adView.setMediaView((MediaView) adView.findViewById(R.id.ad_media));
+
 
         // Set other ad assets.
         adView.setHeadlineView(adView.findViewById(R.id.ad_headline));

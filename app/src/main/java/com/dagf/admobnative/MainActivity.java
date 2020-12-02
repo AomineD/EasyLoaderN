@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void OnFail(String ss) {
+        public void OnFail(String ss, int pos) {
 
         }
     });
