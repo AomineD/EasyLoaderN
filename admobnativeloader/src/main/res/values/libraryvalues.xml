@@ -9,6 +9,7 @@
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="blacksp">#212121</color>
 
     <color name="native_text_button">#000</color>
 
