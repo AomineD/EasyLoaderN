@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import com.dagf.admobnativeloader.EasyNativeLoader;
 import com.dagf.admobnativeloader.R;
 import com.dagf.admobnativeloader.utils.TypeAd;
-import com.dagf.hmk.ads.NativeHMKLayout;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -203,10 +202,10 @@ nativeAdapterExit = new NativeAdapterExit();
                 case ADMOB:
 v = LayoutInflater.from(ExitAdView.this).inflate(R.layout.native_ad, parent, false);
                     break;
-                case HUAWEI:
-                    v = LayoutInflater.from(ExitAdView.this).inflate(R.layout.native_ad_huawei, parent, false);
+                /*case HUAWEI:
+                //    v = LayoutInflater.from(ExitAdView.this).inflate(R.layout.native_ad_huawei, parent, false);
                     break;
-                case AUDIENCE:
+                */case AUDIENCE:
                     v = LayoutInflater.from(ExitAdView.this).inflate(R.layout.native_ad_facebook, parent, false);
                     break;
 
@@ -228,7 +227,6 @@ holder.config(position);
 //ADMOB
             private UnifiedNativeAdView unifiedNativeAdView;
        //HUAWEI
-       private NativeHMKLayout nativeHMKLayout;
        //AUDIENCE
             private View native_ad_facebook;
             public NativeAdapterHolder(@NonNull View itemView) {
@@ -240,7 +238,7 @@ unifiedNativeAdView = itemView.findViewById(R.id.native_adgoogle);
 
                         break;
                     case HUAWEI:
-nativeHMKLayout = itemView.findViewById(R.id.native_huawei);
+//nativeHMKLayout = itemView.findViewById(R.id.native_huawei);
                         break;
                     case AUDIENCE:
 native_ad_facebook = itemView.findViewById(R.id.banner_container);
@@ -257,7 +255,7 @@ native_ad_facebook = itemView.findViewById(R.id.banner_container);
                    }
                         break;
                     case HUAWEI:
-                        nativeHMKLayout = itemView.findViewById(R.id.native_huawei);
+                //        nativeHMKLayout = itemView.findViewById(R.id.native_huawei);
                         break;
                     case AUDIENCE:
                         native_ad_facebook = itemView.findViewById(R.id.banner_container);
