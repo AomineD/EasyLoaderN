@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +41,9 @@ public class ExitAdView extends AppCompatActivity {
     private CardView buttonQuit, buttonMoreApps;
     private CircleIndicator2 indicator;
     private int count;
+
+    public static Activity context;
+public static String urlS = "";
 
     public static final String key_ids_audience = "SDASWQFMGGPFDL";
 
@@ -102,6 +109,9 @@ public class ExitAdView extends AppCompatActivity {
         buttonQuit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(context!=null){
+                    context.finish();
+                }
                 finish();
             }
         });
@@ -117,6 +127,14 @@ public class ExitAdView extends AppCompatActivity {
                 configureAudience();
                 break;
         }
+
+        buttonMoreApps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(urlS.startsWith("https://"))
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlS)));
+            }
+        });
     }
 
     private void configureAudience() {
