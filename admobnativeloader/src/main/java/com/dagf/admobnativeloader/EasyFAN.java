@@ -417,7 +417,15 @@ public class EasyFAN {
     }
 
     public boolean isLoadedBanner(int i){
-        if(nativeBannerAd.get(i) != null && nativeBannerAd.get(i).isAdLoaded()){
+        if(i < nativeBannerAd.size() && nativeBannerAd.get(i) != null && nativeBannerAd.get(i).isAdLoaded()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean isLoadedNative(int i){
+        if(i < nativeAd.size() && nativeAd.get(i) != null && nativeAd.get(i).isAdLoaded()){
             return true;
         }else{
             return false;
