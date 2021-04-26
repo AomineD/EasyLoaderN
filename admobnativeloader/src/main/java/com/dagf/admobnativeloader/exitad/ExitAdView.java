@@ -24,8 +24,8 @@ import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.formats.UnifiedNativeAd;
-import com.google.android.gms.ads.formats.UnifiedNativeAdView;
+import com.google.android.gms.ads.nativead.NativeAd;
+import com.google.android.gms.ads.nativead.NativeAdView;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -146,11 +146,11 @@ public static String urlS = "";
     }
 
     private EasyNativeLoader easyNativeLoader;
-    private ArrayList<UnifiedNativeAd> unifiedNativeAds = new ArrayList<>();
+    private ArrayList<NativeAd> unifiedNativeAds = new ArrayList<>();
     private void configureAdmob() {
         count = 0;
         easyNativeLoader = new EasyNativeLoader(this);
-        AdLoader adLoader = new AdLoader.Builder(this, id_admob_native).forUnifiedNativeAd(easyNativeLoader.setupAdapterNatives()).build();
+        AdLoader adLoader = new AdLoader.Builder(this, id_admob_native).forNativeAd(easyNativeLoader.setupAdapterNatives()).build();
 
         easyNativeLoader.adLoader = adLoader;
         unifiedNativeAds.clear();
@@ -243,7 +243,7 @@ holder.config(position);
 
         public class NativeAdapterHolder extends RecyclerView.ViewHolder{
 //ADMOB
-            private UnifiedNativeAdView unifiedNativeAdView;
+            private NativeAdView unifiedNativeAdView;
        //HUAWEI
        //AUDIENCE
             private View native_ad_facebook;
@@ -267,9 +267,9 @@ native_ad_facebook = itemView.findViewById(R.id.banner_container);
             public void config(int pos) {
                 switch (typeAd){
                     case ADMOB:
-                   UnifiedNativeAd ad = easyNativeLoader.getSomeNative(pos);
+                   NativeAd ad = easyNativeLoader.getSomeNative(pos);
                    if(ad != null){
-                       easyNativeLoader.populateUnifiedNativeAdView(ad, unifiedNativeAdView);
+                       easyNativeLoader.populateNativeAdView(ad, unifiedNativeAdView);
                    }
                         break;
                     case HUAWEI:
