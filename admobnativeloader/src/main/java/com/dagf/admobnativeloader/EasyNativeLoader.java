@@ -19,13 +19,11 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.VideoController;
-import com.google.android.gms.ads.formats.MediaView;
-import com.google.android.gms.ads.formats.NativeAdOptions;
-import com.google.android.gms.ads.formats.UnifiedNativeAd;
-import com.google.android.gms.ads.formats.UnifiedNativeAdView;
+import com.google.android.gms.ads.nativead.MediaView;
+import com.google.android.gms.ads.nativead.NativeAd;
+import com.google.android.gms.ads.nativead.NativeAdView;
 import com.squareup.picasso.Picasso;
 
 import java.security.MessageDigest;
@@ -44,7 +42,7 @@ public class EasyNativeLoader {
 
 
     public interface ReceiveListener{
-        void OnReceive(UnifiedNativeAd ad);
+        void OnReceive(NativeAd ad);
 
         void OnFailed();
     }
@@ -75,48 +73,18 @@ public class EasyNativeLoader {
 
 
 
-    public void SetupIntersticial(final String ad_unit_int){
-        interstitialAd = new InterstitialAd(contexto);
-        interstitialAd.setAdUnitId(ad_unit_int);
-        interstitialAd.setAdListener(new AdListener(){
-            @Override
-            public void onAdClosed() {
-                super.onAdClosed();
-                easyListener.OnClosed();
-                SetupIntersticial(ad_unit_int);
-            }
-
-            @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-                easyListener.OnFailed("Error code: "+i);
-            }
-        });
-        interstitialAd.loadAd(new AdRequest.Builder().build());
-    }
-
-    public boolean isInterstitialLoaded(){
-        return interstitialAd != null && interstitialAd.isLoaded();
-    }
-
-    public void showIntersticial(){
-        if(interstitialAd.isLoaded()){
-            interstitialAd.show();
-        }
-    }
 
 // =========================================== VARIABLES NORMALS ======================================================= //
 
-    private InterstitialAd interstitialAd;
     private AdLoader nativos;
-    private UnifiedNativeAd[] adsNativosEx;
+    private NativeAd[] adsNativosEx;
     public static boolean LoadedNative;
     private ArrayList<Integer> list_d = new ArrayList<>();
 
     // ============================================ VARIABLES VIEWS ============================================ //
 
     private RelativeLayout[] banner_container;
-    private UnifiedNativeAdView[] adViewUnif;
+    private NativeAdView[] adViewUnif;
     private TextView[] action;
     private TextView[] title_ad;
     private TextView[] sponsor;
@@ -130,65 +98,6 @@ public class EasyNativeLoader {
 
     private int AdCount;
 
-  /*  public void newInstance(View mainview, int adcount){
-this.AdCount = adcount;
-d = 0;
-        SetCountView(adcount);
-
-if(adcount == 0){
-    return;
-}else if(adcount == 1)
-{
-View nat1 = mainview.findViewById(list_d.get(0));
-SetupViewsAnother(nat1);
-}else if (adcount == 2){
-
-    View nat1 = mainview.findViewById(list_d.get(0));
-    SetupViewsAnother(nat1);
-    View nat2 = mainview.findViewById(list_d.get(1));
-    SetupViewsAnother(nat2);
-
-}else if (adcount == 3){
-
-    View nat1 = mainview.findViewById(list_d.get(0));
-    SetupViewsAnother(nat1);
-    View nat2 = mainview.findViewById(list_d.get(1));
-    SetupViewsAnother(nat2);
-    View nat3 = mainview.findViewById(list_d.get(2));
-    SetupViewsAnother(nat3);
-
-}else if (adcount == 4){
-
-    View nat1 = mainview.findViewById(list_d.get(0));
-    SetupViewsAnother(nat1);
-    View nat2 = mainview.findViewById(list_d.get(1));
-    SetupViewsAnother(nat2);
-    View nat3 = mainview.findViewById(list_d.get(2));
-    SetupViewsAnother(nat3);
-    View nat4 = mainview.findViewById(list_d.get(3));
-    SetupViewsAnother(nat4);
-
-}else if (adcount == 5){
-
-    View nat1 = mainview.findViewById(list_d.get(0));
-    SetupViewsAnother(nat1);
-    View nat2 = mainview.findViewById(list_d.get(1));
-    SetupViewsAnother(nat2);
-    View nat3 = mainview.findViewById(list_d.get(2));
-    SetupViewsAnother(nat3);
-    View nat4 = mainview.findViewById(list_d.get(3));
-    SetupViewsAnother(nat4);
-    View nat5 = mainview.findViewById(list_d.get(4));
-    SetupViewsAnother(nat5);
-
-}
-
-if(adcount > 0){
-    SetupAnotherNatives();
-}
-
-    }
-*/
     public void SetViewsId(ArrayList<Integer> ids){
         list_d.clear();
         list_d.addAll(ids);
@@ -201,31 +110,13 @@ if(adcount > 0){
 
     // ======================================= ASIGNAR VIEWS ======================================== //
    private int d = 0;
- /*   private void SetupViewsAnother(View views) {
-
-        banner_container[d] = views.findViewById(R.id.banner_container);
-        mediaviu[d] = views.findViewById(R.id.mediaView);
-        adViewUnif[d] = views.findViewById(R.id.unified);
-
-        background[d] = views.findViewById(R.id.card);
-        iconView[d] = views.findViewById(R.id.ad_icon_view);
-        action[d] = views.findViewById(R.id.callto);
-        title_ad[d] = views.findViewById(R.id.title_ad);
-        sponsor[d] = views.findViewById(R.id.sponsor_ad);
-        button_action[d] = views.findViewById(R.id.button_action);
-        ad_choices[d] = views.findViewById(R.id.ad_choices);
-
-        d++;
-
-    }*/
-
 
 // ================================= ESTO ES PARA SETEAR LA CANTIDAD DE ANUNCIOS EN VIEW ================================ //
     private void SetCountView(int adcount) {
 
-        adsNativosEx = new UnifiedNativeAd[adcount];
+        adsNativosEx = new NativeAd[adcount];
         banner_container = new RelativeLayout[adcount];
-        adViewUnif = new UnifiedNativeAdView[adcount];
+        adViewUnif = new NativeAdView[adcount];
         action = new TextView[adcount];
         sponsor = new TextView[adcount];
         title_ad = new TextView[adcount];
@@ -254,18 +145,7 @@ if(adcount > 0){
             iconView[isdd].setImageDrawable(adsNativosEx[isdd].getIcon().getDrawable());
 
         //  Picasso.get().load(MainActivity.nativeOrig.getAdChoicesInfo().getImages().get(0).getUri()).fit().into(iconView_1);
-
-        adsNativosEx[isdd].setUnconfirmedClickListener(new UnifiedNativeAd.UnconfirmedClickListener() {
-            @Override
-            public void onUnconfirmedClickReceived(String s) {
-                //  Toast.makeText(getContext(), "CLICK!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onUnconfirmedClickCancelled() {
-
-            }
-        });
+        
 
         adViewUnif[isdd].setCallToActionView(action[isdd]);
         adViewUnif[isdd].setCallToActionView(action[isdd]);
@@ -288,11 +168,11 @@ if(adcount > 0){
 
 
 
-       /* nativos = new AdLoader.Builder(contexto, ad_unit).forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+       /* nativos = new AdLoader.Builder(contexto, ad_unit).forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
             @Override
-            public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
-                Log.e("MAIN", "onUnifiedNativeAdLoaded: GOES"+isdd);
-                adsNativosEx[isdd] = unifiedNativeAd;
+            public void onNativeAdLoaded(NativeAd NativeAd) {
+                Log.e("MAIN", "onNativeAdLoaded: GOES"+isdd);
+                adsNativosEx[isdd] = NativeAd;
 
                 SetupGods(isdd);
                 isdd++;
@@ -320,18 +200,18 @@ if(adcount > 0){
 
     // ============================================ SETUP NATIVES ADAPTER ================================================ //
   // ===================================================================================================================== //
-    public ArrayList<UnifiedNativeAd> nativeAdsAdapter = new ArrayList<>();
+    public ArrayList<NativeAd> nativeAdsAdapter = new ArrayList<>();
     public boolean isLoading = true;
 
     public AdLoader adLoader;
-    public UnifiedNativeAd.OnUnifiedNativeAdLoadedListener setupAdapterNatives(){
+    public NativeAd.OnNativeAdLoadedListener setupAdapterNatives(){
 
-       return new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+       return new NativeAd.OnNativeAdLoadedListener() {
             @Override
-            public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
-               Log.e("MAIN", "onUnifiedNativeAdLoaded: "+adLoader.isLoading() );
+            public void onNativeAdLoaded(NativeAd NativeAd) {
+               Log.e("MAIN", "onNativeAdLoaded: "+adLoader.isLoading() );
 
-                nativeAdsAdapter.add(unifiedNativeAd);
+                nativeAdsAdapter.add(NativeAd);
                 if(nativeListener != null){
 nativeListener.onLoadNative(nativeAdsAdapter.size() - 1);
                 }
@@ -340,7 +220,7 @@ nativeListener.onLoadNative(nativeAdsAdapter.size() - 1);
         };
     }
 
-    public UnifiedNativeAd getSomeNative(int index){
+    public NativeAd getSomeNative(int index){
         if(nativeAdsAdapter.size() > index && nativeAdsAdapter.get(index) != null){
             return nativeAdsAdapter.get(index);
         }else{
@@ -354,11 +234,11 @@ nativeListener.onLoadNative(nativeAdsAdapter.size() - 1);
      normal_view
      =====================================
 
-    public void SetupHolder(UnifiedNativeAdView view, int wht){
+    public void SetupHolder(NativeAdView view, int wht){
 
         RelativeLayout banner_container;
         RelativeLayout norml;
-  //      UnifiedNativeAdView adViewUnif;
+  //      NativeAdView adViewUnif;
         TextView action;
         TextView title_ad;
         TextView sponsor;
@@ -419,7 +299,7 @@ nativeListener.onLoadNative(nativeAdsAdapter.size() - 1);
 
             //  Picasso.get().load(MainActivity.nativeOrig.getAdChoicesInfo().getImages().get(0).getUri()).fit().into(iconView_1);
 
-            nativeAdsAdapter.get(wht).setUnconfirmedClickListener(new UnifiedNativeAd.UnconfirmedClickListener() {
+            nativeAdsAdapter.get(wht).setUnconfirmedClickListener(new NativeAd.UnconfirmedClickListener() {
                 @Override
                 public void onUnconfirmedClickReceived(String s) {
                     //  Toast.makeText(getContext(), "CLICK!", Toast.LENGTH_SHORT).show();
@@ -447,11 +327,11 @@ nativeListener.onLoadNative(nativeAdsAdapter.size() - 1);
 
      **/
 
-    public  UnifiedNativeAd getNat(int index){
+    public  NativeAd getNat(int index){
        return nativeAdsAdapter.get(index);
     }
 
-    public  void populateUnifiedNativeAdView(UnifiedNativeAd nativeAd, UnifiedNativeAdView adView) {
+    public  void populateNativeAdView(NativeAd nativeAd, NativeAdView adView) {
         // Set the media view.
         adView.setVisibility(View.VISIBLE);
         adView.setMediaView((MediaView) adView.findViewById(R.id.ad_media));
@@ -467,11 +347,11 @@ nativeListener.onLoadNative(nativeAdsAdapter.size() - 1);
       adView.setStoreView(adView.findViewById(R.id.ad_store));
         adView.setAdvertiserView(adView.findViewById(R.id.ad_advertiser));
 
-        // The headline and mediaContent are guaranteed to be in every UnifiedNativeAd.
+        // The headline and mediaContent are guaranteed to be in every NativeAd.
         ((TextView) adView.getHeadlineView()).setText(nativeAd.getHeadline());
         adView.getMediaView().setMediaContent(nativeAd.getMediaContent());
 
-        // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
+        // These assets aren't guaranteed to be in every NativeAd, so it's important to
         // check before trying to display them.
         if (nativeAd.getBody() == null) {
             adView.getBodyView().setVisibility(View.INVISIBLE);
