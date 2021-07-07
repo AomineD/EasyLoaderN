@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/banner_container"
+    android:layout_width="match_parent"
+    android:layout_height="325dp"
+    android:orientation="vertical"
+    android:visibility="visible"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/white"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/native_main_image"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_above="@+id/button_action"
+                android:layout_below="@+id/native_text"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="5dp">
+
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/native_sponsored_text_view"
+                android:layout_width="80dp"
+                android:layout_height="24dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="28dp"
+                android:layout_toStartOf="@+id/native_privacy_information_icon_image"
+                android:gravity="end"
+                android:text="@string/com_mopub_nativeads_sponsored_by"
+                android:textAlignment="textEnd"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/native_privacy_information_icon_image"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp">
+
+
+            </ImageView>
+
+
+            <TextView
+                android:id="@+id/native_title"
+                android:layout_width="245dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/roboto_black"
+                android:gravity="center"
+                android:text="@string/loading_ad"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:id="@+id/native_text"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/native_title"
+                android:layout_alignStart="@+id/native_title"
+                android:layout_alignLeft="@+id/native_title"
+                android:layout_marginTop="-1dp"
+                android:fontFamily="@font/roboto"
+                android:text="Sponsor"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:visibility="visible" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/button_action"
+                android:layout_width="150dp"
+                android:layout_height="45dp"
+                android:layout_above="@+id/native_sponsored_text_view"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="2dp"
+                app:cardCornerRadius="5dp"
+
+                app:cardBackgroundColor="@color/blue_fb">
+
+                <TextView
+                    android:id="@+id/callto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="Install"
+                    android:textColor="@color/white" />
+
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/native_icon_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_above="@id/native_sponsored_text_view"
+                android:layout_marginStart="7dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginBottom="5dp">
+
+            </ImageView>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>
